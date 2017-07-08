@@ -212,7 +212,7 @@ app.post("/webhook/", function (req, res) {
                                     "Oops, I didn't catch that. For things I can help you with, type \“help.\” ",
                                     "Sorry, I didn't get that. Try something like: \"KU news\", or type \"help\""]
 
-                    var ran_num = random.integer(0,cmd_err.length);
+                    var ran_num = random.integer(0,cmd_err.length-1);
                     BOT.sendTextMessage(sender, cmd_err[ran_num]);
                 }
             }
@@ -252,13 +252,13 @@ app.post("/webhook/", function (req, res) {
 })
 
 function jokesOrFacts(sender, data) {
-    let randomNumber = random.integer(0, data.data.length);
+    let randomNumber = random.integer(0, data.length-1);
     let mesage = data.data[randomNumber];
     BOT.sendTextMessage(sender, mesage);
 }
 
 function myGenericReply(sender, data) {
-    let randomNumber = random.integer(0, data.length);
+    let randomNumber = random.integer(0, data.length-1);
     let message = data[randomNumber];
     BOT.sendTextMessage(sender, message);
 }
