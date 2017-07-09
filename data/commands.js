@@ -22,6 +22,6 @@ module.exports = [
 	    	"inspiring","nice","wow", "you are intelligent", "hilarious", "funny"], // COmpliments
 	    ["ku result","result aayo", "result aayo ","result","results",],
 	    ['trending news','latest news', 'breaking news','news','tech news','whats on the news','show me news'],
-	    ['qfx','qfx cinema','qfx cinemas','qfx movies'],
+	    ['qfx','qfx cinema','qfx cinemas','qfx movies', 'qfx movie'],
 	    ["i am feeling horny","send nude", "send nudes"]
 	]
