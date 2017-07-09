@@ -12,14 +12,15 @@ const forecast = (sender, address) => {
 		BOT.sendTextMessage(sender, `Fetching Data: ${response.data.results[0].formatted_address}`);
 		let lat = response.data.results[0].geometry.location.lat;
 		let lng = response.data.results[0].geometry.location.lng;
-		let weatherUrl = `https://api.darksky.net/forecast/64b182a3079c85b7540d58dfab690775/${lat},${lng}`;
+		let weatherUrl = `https://api.darksky.net/forecast/64b182a3079c85b7540d58dfab690775/${lat},${lng}?units=si`;
 		return axios.get(weatherUrl);
 	}).then((response) => {
 		let temperature = response.data.currently.temperature;
 		let apparentTemperature = response.data.currently.apparentTemperature;
 		let summary = response.data.currently.summary;
+		let extendedSummary = response.data.hourly.summary;
 		BOT.sendTextMessage(sender, summary);
-		BOT.sendTextMessage(sender, `It's currently ${temperature}. It feels like ${apparentTemperature}`)
+		BOT.sendTextMessage(sender, `It's currently ${temperature} but feels like ${apparentTemperature}.\nIt's going to be ${extendedSummary}`)
 	}).catch((error) => {
 		if(error.code === 'ENOTFOUND') {
 			BOT.sendTextMessage(sender, 'Unable to connect to API servers. Try Again Later');
