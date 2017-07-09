@@ -16,6 +16,12 @@ A Utility Messenger Bot
 | 9 | weather in kathmandu | [Dark Sky API](https://darksky.net) |) |
 | 10 | mechi election | Self API |
 
+### Screenshots
+
+![Latest News](https://raw.githubusercontent.com/adityathebe/botLimbu/master/data/img/screenshot_1.png)
+![Weather Data](https://raw.githubusercontent.com/adityathebe/botLimbu/master/data/img/screenshot_2.png)
+![Nepal News](https://raw.githubusercontent.com/adityathebe/botLimbu/master/data/img/screenshot_3.png)
+
 ### Structure
 
 ```sh

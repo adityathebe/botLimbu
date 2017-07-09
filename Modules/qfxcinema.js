@@ -1,32 +1,38 @@
 const request = require('request');
-const cheerio = require('cheerio');
 const BOT = require("../Template/templates");
 
 const fetch = (sender) => {
-    const url = 'http://www.qfxcinemas.com/';
-	let movies = [];
-	let upcomingMovies = [];
-    let messageData = 'On Cinema\n\n';
+    const url = 'https://qfx-nepal.herokuapp.com/';
+    let moviesPayload = [];
+    let upcomingMoviesPayload = [];
 
-    request(url, (error, response, body) => {
+    request({url, json:true}, (error, response, body) => {
         if(!error) {
-            /*=============== CHEERIO ================*/
-            let $ = cheerio.load(body);
-            $(".movie").each(function(i, elem) {
-                let movie = $(this).find('h4').text();
-                movies.push(movie);
-            });
-            upcomingMovies = movies.slice(6)
-            movies = movies.slice(0, 6);
-            for (var movie of movies) {
-                messageData += movie + '\n';
-            }
-            messageData += '-------------------------------------\nComing Soon\n\n';
-            for (var movie of upcomingMovies) {
-                messageData += movie + '\n';
-            }
+            let movies = body.onCinema;
+            let upcoming = body.upcomingMovies;
             
-            BOT.sendTextMessage(sender, messageData);
+            for (var i = 0; i < movies.length; i++) {
+                moviesPayload.push({
+                    "title": movies[i].title,
+                    "subtitle" : movies[i].type,
+                    "img_url" : movies[i].image,
+                    "url" : movies[i].book,
+                    "btnTitle" : 'Book'
+                })
+            }
+            BOT.sendGenericMessage(sender, moviesPayload);
+
+            for (var i = 0; i < upcoming.length; i++) {
+                upcomingMoviesPayload.push({
+                    "title": upcoming[i].title,
+                    "subtitle" : upcomfing[i].type + '\n' + upcoming[i].date,
+                    "img_url" : upcoming[i].image,
+                    "url" : '#'
+                })
+            }
+            BOT.sendGenericMessage(sender, upcomingMoviesPayload);
+        } else {
+            BOT.sendTextMessage(sender, 'Sorry, could not connect to the server.\nPlease try again later');
         }
     });
 }

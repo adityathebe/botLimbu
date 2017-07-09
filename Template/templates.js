@@ -81,7 +81,7 @@ var sendGenericMessage = function(sender, data) {
                 {
                     "type": "web_url",
                     "url": data[i].url,
-                    "title": "Read More"
+                    "title": (data[i].btnTitle) ? data[i].btnTitle : 'Read More'
                 }
             ],
         })
