@@ -20,16 +20,17 @@ const fetch = (sender) => {
                     btnTitle : 'Book Ticket'
                 })
             }
-            BOT.sendGenericMessage(sender, moviesPayload);
 
             for (let j= 0; j< upcoming.length; j++) {
                 upcomingMoviesPayload.push({
                     title: upcoming[j].title,
                     subtitle : 'Realeasing on: ' + upcoming[j].date,
                     img_url : upcoming[j].image,
-                    url : '#'
+                    url : upcoming[j].image,
+                    btnTitle : 'See Poster'
                 })
             }
+            BOT.sendGenericMessage(sender, moviesPayload);
             BOT.sendGenericMessage(sender, upcomingMoviesPayload);
         } else {
             BOT.sendTextMessage(sender, 'Sorry, could not connect to the server.\nPlease try again later');
