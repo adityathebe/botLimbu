@@ -20,7 +20,7 @@ const forecast = (sender, address) => {
 		let summary = response.data.currently.summary;
 		let extendedSummary = response.data.hourly.summary;
 		BOT.sendTextMessage(sender, summary);
-		BOT.sendTextMessage(sender, `It's currently ${temperature} but feels like ${apparentTemperature}.\nIt's going to be ${extendedSummary}`)
+		BOT.sendTextMessage(sender, `${temperature}°c but feels like ${apparentTemperature}°c.\nIt's going to be ${extendedSummary}`)
 	}).catch((error) => {
 		if(error.code === 'ENOTFOUND') {
 			BOT.sendTextMessage(sender, 'Unable to connect to API servers. Try Again Later');

@@ -17,7 +17,8 @@ const Nude          = require('./Modules/nude');
 const KU            = require('./Modules/ku');
 const News          = require('./Modules/news');
 const Election      = require('./Modules/election');
-const Weather      = require('./Modules/weather');
+const Weather       = require('./Modules/weather');
+const QFX           = require('./Modules/qfxcinema');
 
 /* ============ Data ============= */
 const jokes         = require("./data/jokes");
@@ -140,6 +141,9 @@ app.post("/webhook/", function (req, res) {
                         });
                         break;
                     case 14:
+                        QFX.fetch(sender);
+                        break;
+                    case 15:
                         BOT.sendButtonMessage(sender, ['Adult Content. Proceed?', 'I Agree. Show Image'], 'PL_adult');
                         break;
                     default:
@@ -162,7 +166,7 @@ app.post("/webhook/", function (req, res) {
                     let address = (text.replace('weather', ""));
                     address = address.trim();
                     Weather.forecast(sender, address);
-                } 
+                }
 
                 /*======== Check for Election Data ======== */
                 else if (text.search("election") >= 0) {
