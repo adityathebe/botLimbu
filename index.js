@@ -253,7 +253,7 @@ app.post("/webhook/", function (req, res) {
 
 function jokesOrFacts(sender, data) {
     let randomNumber = random.integer(0, data.length-1);
-    let mesage = data.data[randomNumber];
+    let mesage = data[randomNumber];
     BOT.sendTextMessage(sender, mesage);
 }
 
