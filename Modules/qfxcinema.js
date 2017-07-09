@@ -11,23 +11,23 @@ const fetch = (sender) => {
             let movies = body.onCinema;
             let upcoming = body.upcomingMovies;
             
-            for (var i = 0; i < movies.length; i++) {
+            for (let i = 0; i < movies.length; i++) {
                 moviesPayload.push({
-                    "title": movies[i].title,
-                    "subtitle" : movies[i].type,
-                    "img_url" : movies[i].image,
-                    "url" : movies[i].book,
-                    "btnTitle" : 'Book'
+                    title: movies[i].title,
+                    subtitle : movies[i].type,
+                    img_url : movies[i].image,
+                    url : movies[i].book,
+                    btnTitle : 'Book Ticket'
                 })
             }
             BOT.sendGenericMessage(sender, moviesPayload);
 
-            for (var i = 0; i < upcoming.length; i++) {
+            for (let j= 0; j< upcoming.length; j++) {
                 upcomingMoviesPayload.push({
-                    "title": upcoming[i].title,
-                    "subtitle" : upcoming[i].type + '\n' + upcoming[i].date,
-                    "img_url" : upcoming[i].image,
-                    "url" : '#'
+                    title: upcoming[j].title,
+                    subtitle : 'Realeasing on: ' + upcoming[j].date,
+                    img_url : upcoming[j].image,
+                    url : '#'
                 })
             }
             BOT.sendGenericMessage(sender, upcomingMoviesPayload);
