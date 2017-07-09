@@ -25,7 +25,7 @@ const fetch = (sender) => {
             for (var i = 0; i < upcoming.length; i++) {
                 upcomingMoviesPayload.push({
                     "title": upcoming[i].title,
-                    "subtitle" : upcomfing[i].type + '\n' + upcoming[i].date,
+                    "subtitle" : upcoming[i].type + '\n' + upcoming[i].date,
                     "img_url" : upcoming[i].image,
                     "url" : '#'
                 })
