@@ -17,6 +17,7 @@ const Nude          = require('./Modules/nude');
 const KU            = require('./Modules/ku');
 const News          = require('./Modules/news');
 const Election      = require('./Modules/election');
+const Weather      = require('./Modules/weather');
 
 /* ============ Data ============= */
 const jokes         = require("./data/jokes");
@@ -73,13 +74,7 @@ app.post("/webhook/", function (req, res) {
                 }
             }
 
-            if(event.message.quick_reply) {
-                let payload = event.message.quick_reply.payload;
-                console.log("Quick Replies Payload Received: " + payload)
-                if(newsKeyWord.indexOf(payload) >= 0) {
-                    News.display(sender, payload)
-                }
-            } else if(command_exists)  {
+            if(command_exists)  {
                 switch(commandCode) {
                     case 0: // Greet
                         myGenericReply(sender, rep[0]);
@@ -152,7 +147,25 @@ app.post("/webhook/", function (req, res) {
                 }
             }
             else {
-                if (text.search("election") >= 0) {
+                /*======== Check for Quick Replies payloads ======== */
+                if(event.message.quick_reply) {
+                    let payload = event.message.quick_reply.payload;
+                    console.log("Quick Replies Payload Received: " + payload)
+                    if(newsKeyWord.indexOf(payload) >= 0) {
+                        News.display(sender, payload)
+                    }
+                } 
+
+                /*======== Check for Weather  Data ======== */
+                else if (text.search('weather') >= 0) {
+                    BOT.sendTypingOn(sender);
+                    let address = (text.replace('weather', ""));
+                    address = address.trim();
+                    Weather.forecast(sender, address);
+                } 
+
+                /*======== Check for Election Data ======== */
+                else if (text.search("election") >= 0) {
                     BOT.sendTypingOn(sender);
                     let address = (text.replace('election', ""));
                     address = address.trim();
