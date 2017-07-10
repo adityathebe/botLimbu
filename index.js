@@ -26,7 +26,6 @@ const facts         = require("./data/facts");
 const cmd           = require("./data/commands");
 const rep           = require("./data/replies");
 const electionData  = require("./data/election");
-const badWords      = require('./data/badwords');
 
 /* ============ News Data ============ */
 const newsKeyWord = ['bbc-news','bbc-sport','cnn','hacker-news','mashable','techcrunch'];
