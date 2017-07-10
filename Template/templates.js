@@ -57,7 +57,7 @@ var sendTextMessage = function(sender, messageText) {
         }
     }
 
-    return new Promise = ((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         callSendApi(messageData).then( (msg) => {
             resolve(msg);
         }, (errMsg) => {
