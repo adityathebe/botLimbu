@@ -29,8 +29,9 @@ const send = (sender) => {
             if(nsfwurl.search(".jpg") > 1){
                 let redditSource = url.replace("https://www.reddit.com/r/", "");
                 redditSource = redditSource.replace(".json" ,"")
-                BOT.sendImage(sender, nsfwurl);
-                BOT.sendButtonMessage(sender, [`Source: ${redditSource}`, "Show More"], "PL_adult");
+                BOT.sendImage(sender, nsfwurl).then (() => {
+                    BOT.sendButtonMessage(sender, [`Source: ${redditSource}`, "Show More"], "PL_adult");
+                });
             } else {
                 console.log("Nude not found. Reloading !")
                 send(sender);

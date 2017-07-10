@@ -80,11 +80,13 @@ var sendImage = function(sender, imgUrl) {
             }
         }
     }
-    callSendApi(messageData).then( (msg) => {
-        console.log(msg);
-    }, (errMsg) => {
-        console.log(errMsg);
-    });
+    return new Promise((resolve, reject) => {
+        callSendApi(messageData).then( (msg) => {
+            resolve(msg);
+        }, (errMsg) => {
+            reject(errMsg);
+        });
+    })
 }
 
 var sendGenericMessage = function(sender, data) {
@@ -148,11 +150,13 @@ var sendButtonMessage = function(sender, buttonMsg, payloadName) {
             }
         }
     }
-    callSendApi(messageData).then( (msg) => {
-        console.log(msg);
-    }, (errMsg) => {
-        console.log(errMsg);
-    });
+    return new Promise((resolve, reject) => {
+        callSendApi(messageData).then( (msg) => {
+            resolve(msg);
+        }, (errMsg) => {
+            reject(errMsg);
+        });
+    })
 }
 
 const sendQuickReplies = (sender, data) => {
