@@ -67,7 +67,7 @@ app.post("/webhook/", function (req, res) {
             console.log("Mesage: " + text);
 
             for(var k = 0 ; k < cmd.length ; k++)   {
-                if(cmd[k].search(text) >= 0)   {
+                if(cmd[k].indexOf(text) >= 0)   {
                     command_exists = true;
                     commandCode = k;
                     break;    

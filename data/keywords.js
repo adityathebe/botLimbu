@@ -15,5 +15,5 @@ module.exports = [
     ['result'],
     ['news'],
     ['qfx', 'movie'],
-    ['nude']
+    ['nude'],
 ]
