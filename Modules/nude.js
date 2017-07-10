@@ -32,7 +32,7 @@ const send = (sender) => {
 
                 BOT.sendImage(sender, nsfwurl).then(() => {
                     console.log('Image sent!')
-                    BOT.sendQuickReplies(sender, {
+                    let payloadData = {
                         text : `Source: ${redditSource}`,
                         element : [
                             {
@@ -41,14 +41,15 @@ const send = (sender) => {
                                 payload : 'PL_adult'
                             }
                         ]
-                    }).then((msg) => {
-                        console.log(msg);
-                    });
+                    }
+                    return BOT.sendQuickReplies(sender, payloadData);
+                }).then((msg) => {
+                    console.log(msg);
                 }).catch((errMsg) => {
                     console.log(errMsg);
                 });
             } else {
-                console.log("Nude not found. Reloading !")
+                console.log("Image not found. Reloading !")
                 send(sender);
             }
         }

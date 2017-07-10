@@ -23,7 +23,8 @@ const QFX           = require('./Modules/qfxcinema');
 /* ============ Data ============= */
 const jokes         = require("./data/jokes");
 const facts         = require("./data/facts");
-const cmd           = require("./data/commands");
+// const cmd           = require("./data/commands");
+const cmd           = require("./data/keywords");
 const rep           = require("./data/replies");
 const electionData  = require("./data/election");
 
@@ -67,7 +68,7 @@ app.post("/webhook/", function (req, res) {
 
             for(var k = 0 ; k < cmd.length ; k++)   {
                 for(var j = 0 ; j < cmd[k].length ; j++)    {
-                    if(text == cmd[k][j])   {
+                    if(cmd.search(text) >= 0)   {
                         command_exists = true;
                         commandCode = k;
                         break;    
