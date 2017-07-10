@@ -34,12 +34,14 @@ const send = (sender) => {
                         text : `Source: ${redditSource}`,
                         element : [
                             {
-                                "content_type" : "text",
-                                "title" : 'Show More',
-                                "payload" : 'PL_adult'
+                                content_type : 'text',
+                                title : 'Show More',
+                                payload : 'PL_adult'
                             }
                         ]
                     });
+                }).catch((errMsg) => {
+                    console.log(errMsg);
                 });
             } else {
                 console.log("Nude not found. Reloading !")
