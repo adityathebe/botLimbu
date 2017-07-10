@@ -26,6 +26,7 @@ const facts         = require("./data/facts");
 const cmd           = require("./data/commands");
 const rep           = require("./data/replies");
 const electionData  = require("./data/election");
+const badWords      = require('./data/badwords');
 
 /* ============ News Data ============ */
 const newsKeyWord = ['bbc-news','bbc-sport','cnn','hacker-news','mashable','techcrunch'];
@@ -96,15 +97,9 @@ app.post("/webhook/", function (req, res) {
                         KU.news(sender);
                         break;
                     case 6: // Introduction
-                        myGenericReply(sender, rep[5]);
+                        myGenericReply(sender, rep[3]);
                         break;
-                    case 7: // Swear words
-                        if(Math.floor(Math.random() * 5) < 2)
-                            myGenericReply(sender, rep[2]);
-                        else
-                            BOT.sendImage(sender, "http://i.imgur.com/lk0zVwq.jpg");
-                        break;
-                    case 8:
+                    case 7:
                         var aditya =   [{
                             title: "Aditya Thebe",
                             subtitle: "Coolest Person on earth",
@@ -114,19 +109,19 @@ app.post("/webhook/", function (req, res) {
                         }]
                         BOT.sendGenericMessage(sender, aditya);
                         break;
-                    case 9: // Good Byes
-                        myGenericReply(sender, rep[3]);
+                    case 8: // Good Byes
+                        myGenericReply(sender, rep[1]);
                         break;
-                    case 10: // My name
+                    case 9: // My name
                         BOT.sendTextMessage(sender, "Limbu - Bot Limbu");
                         break;
-                    case 11: // Compliments
-                        myGenericReply(sender, rep[4]);
+                    case 10: // Compliments
+                        myGenericReply(sender, rep[2]);
                         break;
-                    case 12:
+                    case 11:
                         KU.result(sender);
                         break;
-                    case 13:
+                    case 12:
                         let elements = [];
                         for (var m = 0; m < newsChannel.length; m++) {
                             elements.push({
@@ -140,10 +135,10 @@ app.post("/webhook/", function (req, res) {
                             element : elements
                         });
                         break;
-                    case 14:
+                    case 13:
                         QFX.fetch(sender);
                         break;
-                    case 15:
+                    case 14:
                         BOT.sendButtonMessage(sender, ['Adult Content. Proceed?', 'I Agree. Show Image'], 'PL_adult');
                         break;
                     default:

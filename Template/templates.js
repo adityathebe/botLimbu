@@ -44,8 +44,6 @@ var sendTypingOn = function(sender) {
 
     callSendApi(messageData).then( (msg) => {
         console.log(msg);
-    }, (errMsg) => {
-        console.log(errMsg);
     });
 }
 
