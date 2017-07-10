@@ -30,15 +30,17 @@ const fetch = (sender) => {
                     btnTitle : 'See Poster'
                 })
             }
-            BOT.sendTextMessage(sender, 'On Cinema: ').then((msg) => {
-                BOT.sendGenericMessage(sender, moviesPayload);
-                console.log(msg);
+            
+            BOT.sendTextMessage(sender, 'On Cinema: ').then(() => {
+                BOT.sendGenericMessage(sender, moviesPayload).then(() => {
+                    BOT.sendTextMessage(sender, 'Coming Soon: ').then(() => {
+                        BOT.sendGenericMessage(sender, upcomingMoviesPayload).then((msg) => {
+                            console.log(msg);
+                        });
+                    });                    
+                });
             });
 
-            BOT.sendTextMessage(sender, 'On Cinema: ').then((msg) => {
-                BOT.sendGenericMessage(sender, upcomingMoviesPayload);
-                console.log(msg);
-            });
         } else {
             BOT.sendTextMessage(sender, 'Sorry, could not connect to the server.\nPlease try again later');
         }
