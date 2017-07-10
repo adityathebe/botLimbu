@@ -30,8 +30,15 @@ const fetch = (sender) => {
                     btnTitle : 'See Poster'
                 })
             }
-            BOT.sendGenericMessage(sender, moviesPayload);
-            BOT.sendGenericMessage(sender, upcomingMoviesPayload);
+            BOT.sendTextMessage(sender, 'On Cinema: ').then((msg) => {
+                BOT.sendGenericMessage(sender, moviesPayload);
+                console.log(msg);
+            });
+
+            BOT.sendTextMessage(sender, 'On Cinema: ').then((msg) => {
+                BOT.sendGenericMessage(sender, upcomingMoviesPayload);
+                console.log(msg);
+            });
         } else {
             BOT.sendTextMessage(sender, 'Sorry, could not connect to the server.\nPlease try again later');
         }

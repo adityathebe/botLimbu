@@ -56,11 +56,14 @@ var sendTextMessage = function(sender, messageText) {
             text: messageText,
         }
     }
-    callSendApi(messageData).then( (msg) => {
-        console.log(msg);
-    }, (errMsg) => {
-        console.log(errMsg);
-    });
+
+    return new Promise = ((resolve, reject) => {
+        callSendApi(messageData).then( (msg) => {
+            resolve(msg);
+        }, (errMsg) => {
+            reject(errMsg);
+        });
+    })
 }
 
 var sendImage = function(sender, imgUrl) {    
