@@ -30,7 +30,16 @@ const send = (sender) => {
                 let redditSource = url.replace("https://www.reddit.com/r/", "");
                 redditSource = redditSource.replace(".json" ,"")
                 BOT.sendImage(sender, nsfwurl).then (() => {
-                    BOT.sendButtonMessage(sender, [`Source: ${redditSource}`, "Show More"], "PL_adult");
+                    BOT.sendQuickReplies(sender, {
+                        text : `Source: ${redditSource}`,
+                        element : [
+                            {
+                                "content_type" : "text",
+                                "title" : 'Show More',
+                                "payload" : 'PL_adult'
+                            }
+                        ]
+                    });
                 });
             } else {
                 console.log("Nude not found. Reloading !")

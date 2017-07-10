@@ -152,6 +152,14 @@ app.post("/webhook/", function (req, res) {
                     if(newsKeyWord.indexOf(payload) >= 0) {
                         News.display(sender, payload)
                     }
+
+                    if(payload === 'PL_flipcoin') {
+                        Coin.flip(sender);
+                    }
+
+                    if(payload === 'PL_adult') {
+                        Nude.send(sender);
+                    }
                 } 
 
                 /*======== Check for Weather  Data ======== */
@@ -236,10 +244,6 @@ app.post("/webhook/", function (req, res) {
                     myGenericReply(sender, rep[5]);
                     break;
 
-                case "PL_flipcoin":
-                    Coin.flip(sender);
-                    break;
-
                 case 'PL_kantipurNews':
                     Kantipur.news(sender);
                     break;
@@ -250,10 +254,6 @@ app.post("/webhook/", function (req, res) {
 
                 case "PL_KuResult":
                     KU.result(sender);
-                    break;
-
-                case "PL_adult":
-                    Nude.send(sender);
                     break;
             }
         }
