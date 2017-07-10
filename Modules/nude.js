@@ -28,8 +28,10 @@ const send = (sender) => {
             let nsfwurl = body.data.children[ran_num].data.url;
             if(nsfwurl.search(".jpg") > 1){
                 let redditSource = url.replace("https://www.reddit.com/r/", "");
-                redditSource = redditSource.replace(".json" ,"")
-                BOT.sendImage(sender, nsfwurl).then (() => {
+                redditSource = redditSource.replace(".json" ,"");
+
+                BOT.sendImage(sender, nsfwurl).then(() => {
+                    console.log('Image sent!')
                     BOT.sendQuickReplies(sender, {
                         text : `Source: ${redditSource}`,
                         element : [
@@ -39,6 +41,8 @@ const send = (sender) => {
                                 payload : 'PL_adult'
                             }
                         ]
+                    }).then((msg) => {
+                        console.log(msg);
                     });
                 }).catch((errMsg) => {
                     console.log(errMsg);

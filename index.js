@@ -155,10 +155,10 @@ app.post("/webhook/", function (req, res) {
 
                     if(payload === 'PL_flipcoin') {
                         Coin.flip(sender);
-                    }
-
-                    if(payload === 'PL_adult') {
+                    } else if (payload === 'PL_adult') {
                         Nude.send(sender);
+                    } else {
+                        console.log('Unkown Payload [QuickReplies]')
                     }
                 } 
 
