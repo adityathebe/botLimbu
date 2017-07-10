@@ -138,7 +138,7 @@ app.post("/webhook/", function (req, res) {
                         QFX.fetch(sender);
                         break;
                     case 14:
-                        BOT.sendButtonMessage(sender, ['Adult Content. Proceed?', 'I Agree. Show Image'], 'PL_adult');
+                        Nude.send(sender);
                         break;
                     default:
                         BOT.sendTextMessage(sender,"Figuring it out!");

@@ -81,7 +81,7 @@ var sendImage = function(sender, imgUrl) {
         }
     }
     return new Promise((resolve, reject) => {
-        callSendApi(messageData).then( (msg) => {
+        callSendApi(messageData).then((msg) => {
             resolve(msg);
         }, (errMsg) => {
             reject(errMsg);

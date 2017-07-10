@@ -22,7 +22,7 @@ let nsfwurl = [
 
 const send = (sender) => {
     let url = nsfwurl[random.integer(0, nsfwurl.length - 1)];
-    request({url: url, json: true}, (error, response, body) => {
+    request({url, json: true}, (error, response, body) => {
         if(!error)  {
             let ran_num = random.integer(0, body.data.children.length - 1);
             let nsfwurl = body.data.children[ran_num].data.url;
