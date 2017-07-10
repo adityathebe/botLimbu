@@ -8,27 +8,30 @@ const request = require('request');
 const token = process.env.FB_VERIFY_ACCESS_TOKEN;
 const vtoken = process.env.FB_VERIFY_TOKEN;
 
-var callSendApi = function(messageData) {
-    request({
-        uri: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { 
-            access_token: token 
-        },
-        method: 'POST',
-        json: messageData
-    }, (error, response, body)=> {
-        if (!error && response.statusCode == 200) {
-            var recipientId = body.recipient_id;
-            var messageId = body.message_id;
+const callSendApi = (messageData, callback) => {
+    return new Promise( (resolve, reject) => {
+        request({
+            uri: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: { 
+                access_token: token 
+            },
+            method: 'POST',
+            json: messageData
+        }, (error, response, body)=> {
+            if (!error && response.statusCode == 200) {
+                var recipientId = body.recipient_id;
+                var messageId = body.message_id;
 
-            if (messageId)
-                console.log("Successfully sent message to : " + recipientId);
-            else
-                console.log("Successfully called Send API for " + recipientId);
-        } else {
-            console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
-        }
-    });  
+                if (messageId) {
+                    resolve("Successfully sent message to : " + recipientId);
+                } else {
+                    resolve("Could not send message but successfully called Send-API for " + recipientId);
+                }
+            } else {
+                reject(`Failed calling Send API ${response.statusCode} ${response.statusMessage} ${body.error}`);
+            }
+        });  
+    })
 }
 
 var sendTypingOn = function(sender) {
@@ -38,7 +41,12 @@ var sendTypingOn = function(sender) {
         },
         sender_action: "typing_on"
     };
-    callSendApi(messageData);
+
+    callSendApi(messageData).then( (msg) => {
+        console.log(msg);
+    }, (errMsg) => {
+        console.log(errMsg);
+    });
 }
 
 var sendTextMessage = function(sender, messageText) {
@@ -50,7 +58,11 @@ var sendTextMessage = function(sender, messageText) {
             text: messageText,
         }
     }
-    callSendApi(messageData);
+    callSendApi(messageData).then( (msg) => {
+        console.log(msg);
+    }, (errMsg) => {
+        console.log(errMsg);
+    });
 }
 
 var sendImage = function(sender, imgUrl) {    
@@ -67,7 +79,11 @@ var sendImage = function(sender, imgUrl) {
             }
         }
     }
-    callSendApi(messageData)
+    callSendApi(messageData).then( (msg) => {
+        console.log(msg);
+    }, (errMsg) => {
+        console.log(errMsg);
+    });
 }
 
 var sendGenericMessage = function(sender, data) {
@@ -101,7 +117,11 @@ var sendGenericMessage = function(sender, data) {
             }
         }
     };
-    callSendApi(messageData)
+    callSendApi(messageData).then( (msg) => {
+        console.log(msg);
+    }, (errMsg) => {
+        console.log(errMsg);
+    });
 }
 
 var sendButtonMessage = function(sender, buttonMsg, payloadName) {
@@ -124,7 +144,11 @@ var sendButtonMessage = function(sender, buttonMsg, payloadName) {
             }
         }
     }
-    callSendApi(messageData);
+    callSendApi(messageData).then( (msg) => {
+        console.log(msg);
+    }, (errMsg) => {
+        console.log(errMsg);
+    });
 }
 
 const sendQuickReplies = (sender, data) => {
@@ -137,11 +161,14 @@ const sendQuickReplies = (sender, data) => {
             "quick_replies": data.element,
         }
     }
-    callSendApi(messageData);
+    callSendApi(messageData).then( (msg) => {
+        console.log(msg);
+    }, (errMsg) => {
+        console.log(errMsg);
+    });
 }
 
 module.exports = {
-    callSendApi,
     sendTypingOn,
     sendTextMessage,
     sendImage,
