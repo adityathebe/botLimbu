@@ -142,6 +142,9 @@ app.post("/webhook/", function (req, res) {
                     case 14:
                         Nude.send(sender);
                         break;
+                    case 15:
+                        myGenericReply(sender, rep[4]);
+                        break;
                     default:
                         BOT.sendTextMessage(sender,"Figuring it out!");
                 }
@@ -169,7 +172,13 @@ app.post("/webhook/", function (req, res) {
                     BOT.sendTypingOn(sender);
                     let address = (text.replace('weather', ""));
                     address = address.trim();
-                    Weather.forecast(sender, address);
+                    if(address !== '') {
+                        Weather.forecast(sender, address);
+                    } else {
+                        BOT.sendTextMessage(sender, 'Please enter an address.\nExample: kathmandu weather, weather kalinchowk').then ((msg) => {
+                            console.log(msg);
+                        })
+                    }
                 }
 
                 /*======== Check for Election Data ======== */

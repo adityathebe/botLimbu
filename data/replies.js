@@ -7,4 +7,5 @@ module.exports = [
 	["I'll miss you","Come back again :)","See Yaa","Okay. You take care","Goodbye","I hope to see you soon"],
 	["Thank You", "I'm flattered", "So nice of you", "You're sweet", "I'm glad you liked it","I'm honored","Thankyou for your kind words"],
 	["Hi, I am BotLimbu, a Utility bot! You can ask me things like:\n\n• Election mechi\n• KU result\n• KU news\n• Latest News\n• Nepal News\n• Weather Kathmandu\n• QFX Movies\n• Jokes\n• Flip a coin\n• Facts\n\nAnd if you ever need help, just type HELP.\n\nPS: I cannot make converstation🙂"],
+	['Funny Right?', 'Ya, keep laughing', 'Laugh out loud', 'hehe']
 ]

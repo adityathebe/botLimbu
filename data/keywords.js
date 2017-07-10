@@ -11,9 +11,10 @@ module.exports = [
     ['creator', 'invented', 'created', 'inventor'], // creator
     ['bye'], // Good Byes
     ['name'], // Name command
-    ['cool', 'awesome', 'wonderful', 'amazing', 'impressive', 'great', 'nice', 'wow', 'intelligent', 'hilarious', 'funny'], // COmpliments
+    ['cool', 'awesome', 'wonderful', 'amazing', 'impressive', 'great', 'nice', 'wow', 'intelligent', 'hilarious'], // COmpliments
     ['result'],
     ['news'],
     ['qfx', 'movie'],
     ['nude'],
+    ['haha','hehe','lol','funny']
 ]
