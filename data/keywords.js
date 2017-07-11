@@ -1,7 +1,7 @@
 // Keywords - Alternative to commands
 
 module.exports = [
-	['you there', 'are you there', 'hello', 'hy', 'hi', 'hey', 'hola', 'whats up'], // Greets
+	['you there', 'are you there', 'hello', 'hy', 'hey', 'hola', 'whats up'], // Greets
 	['coin'], // Coin flip
 	['joke'], // Joke
 	['fact'], // facts
