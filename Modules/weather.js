@@ -12,7 +12,7 @@ const forecast = (sender, address) => {
 		BOT.sendTextMessage(sender, `Fetching Data: ${response.data.results[0].formatted_address}`);
 		let lat = response.data.results[0].geometry.location.lat;
 		let lng = response.data.results[0].geometry.location.lng;
-		let weatherUrl = `http://api.apixu.com/v1/current.json?key=c481a2b7dd8c47daaa171404171505&q=${27.7172},${85.3240}`;
+		let weatherUrl = `http://api.apixu.com/v1/current.json?key=c481a2b7dd8c47daaa171404171505&q=${lat},${lng}`;
 		return axios.get(weatherUrl);
 	}).then((response) => {
 		let temperature = response.data.current.temp_c;
