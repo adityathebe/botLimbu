@@ -20,12 +20,12 @@ const forecast = (sender, address) => {
 		let summary = response.data.current.condition.text;
 		let summaryImage = response.data.current.condition.icon.replace('//','');
 		BOT.sendTextMessage(sender, summary).then(() => {
-			return BOT.sendImage(sender, summaryImage)
+			return BOT.sendImage(sender, summaryImage);
 		}).then(() => {
-			return BOT.sendTextMessage(sender, `${temperature} °C but feels like ${apparentTemperature} °C.`).
+			return BOT.sendTextMessage(sender, `${temperature} °C but feels like ${apparentTemperature} °C.`);
 		}).catch((errMsg) => {
 			console.log(errMsg)
-		})
+		});
 	}).catch((error) => {
 		if(error.code === 'ENOTFOUND') {
 			BOT.sendTextMessage(sender, 'Unable to connect to API servers. Try Again Later');
