@@ -18,7 +18,7 @@ const forecast = (sender, address) => {
 		let temperature = response.data.current.temp_c;
 		let apparentTemperature = response.data.current.feelslike_c;
 		let summary = response.data.current.condition.text;
-		let summaryImage = response.data.current.condition.icon.replace('//'.'');
+		let summaryImage = response.data.current.condition.icon.replace('//','');
 		BOT.sendTextMessage(sender, summary).then(() => {
 			return BOT.sendImage(sender, summaryImage)
 		}).then(() => {
