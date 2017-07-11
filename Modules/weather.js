@@ -18,8 +18,13 @@ const forecast = (sender, address) => {
 		let temperature = response.data.current.temp_c;
 		let apparentTemperature = response.data.current.feelslike_c;
 		let summary = response.data.current.condition.text;
-		BOT.sendTextMessage(sender, summary).then( () => {
-			BOT.sendTextMessage(sender, `${temperature} °C but feels like ${apparentTemperature} °C.`)
+		let summaryImage = response.data.current.condition.icon
+		BOT.sendTextMessage(sender, summary).then(() => {
+			BOT.sendImage(sender, summaryImage).then(() => {
+				BOT.sendTextMessage(sender, `${temperature} °C but feels like ${apparentTemperature} °C.`).then((msg) => {
+					console.log(msg);
+				});				
+			});
 		});
 	}).catch((error) => {
 		if(error.code === 'ENOTFOUND') {
