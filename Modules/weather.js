@@ -12,15 +12,14 @@ const forecast = (sender, address) => {
 		BOT.sendTextMessage(sender, `Fetching Data: ${response.data.results[0].formatted_address}`);
 		let lat = response.data.results[0].geometry.location.lat;
 		let lng = response.data.results[0].geometry.location.lng;
-		let weatherUrl = `https://api.darksky.net/forecast/64b182a3079c85b7540d58dfab690775/${lat},${lng}?units=si`;
+		let weatherUrl = `http://api.apixu.com/v1/current.json?key=c481a2b7dd8c47daaa171404171505&q=${27.7172},${85.3240}`;
 		return axios.get(weatherUrl);
 	}).then((response) => {
-		let temperature = response.data.currently.temperature;
-		let apparentTemperature = response.data.currently.apparentTemperature;
-		let summary = response.data.currently.summary;
-		let extendedSummary = response.data.hourly.summary;
+		let temperature = response.data.current.temp_c;
+		let apparentTemperature = response.data.current.feelslike_c;
+		let summary = response.data.current.condition.text;
 		BOT.sendTextMessage(sender, summary).then( () => {
-			BOT.sendTextMessage(sender, `${temperature} °C but feels like ${apparentTemperature} °C.\nIt's going to be ${extendedSummary}`)
+			BOT.sendTextMessage(sender, `${temperature} °C but feels like ${apparentTemperature} °C.`)
 		});
 	}).catch((error) => {
 		if(error.code === 'ENOTFOUND') {
