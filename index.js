@@ -156,20 +156,17 @@ app.post("/webhook/", function (req, res) {
                     console.log("Quick Replies Payload Received: " + payload)
                     if(newsKeyWord.indexOf(payload) >= 0) {
                         News.display(sender, payload)
-                    }
-
-                    if(payload === 'PL_flipcoin') {
+                    } else if(payload === 'PL_flipcoin') {
                         Coin.flip(sender);
                     } else if (payload === 'PL_adult') {
                         Nude.send(sender);
                     } else {
-                        console.log('Unkown Payload [QuickReplies]')
+                        console.log('Unknown Payload - QuickReplies')
                     }
                 } 
 
                 /*======== Check for Weather  Data ======== */
                 else if (text.search('weather') >= 0) {
-                    BOT.sendTypingOn(sender);
                     let address = (text.replace('weather', ""));
                     address = address.trim();
                     if(address !== '') {
@@ -183,7 +180,6 @@ app.post("/webhook/", function (req, res) {
 
                 /*======== Check for Election Data ======== */
                 else if (text.search("election") >= 0) {
-                    BOT.sendTypingOn(sender);
                     let address = (text.replace('election', ""));
                     address = address.trim();
 
@@ -249,10 +245,11 @@ app.post("/webhook/", function (req, res) {
         }
 
         if (event.postback) {
+            BOT.sendTypingOn(sender);
             let payload = event.postback.payload;
             switch (payload) {
                 case "GET_STARTED_PAYLOAD":
-                    myGenericReply(sender, rep[5]);
+                    myGenericReply(sender, rep[3]);
                     break;
 
                 case 'PL_kantipurNews':
