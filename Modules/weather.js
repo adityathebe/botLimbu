@@ -14,7 +14,7 @@ const forecast = (sender, address) => {
 		BOT.sendTextMessage(sender, `Fetching Data: ${response.data.results[0].formatted_address}`);
 		let lat = response.data.results[0].geometry.location.lat;
 		let lng = response.data.results[0].geometry.location.lng;
-		let weatherUrl = `https://api.darksky.net/forecast/${apiKey}/${lat},${lng}`;
+		let weatherUrl = `https://api.darksky.net/forecast/${apiKey}/${lat},${lng}?UNITS=si`;
 		return axios.get(weatherUrl);
 	}).then((response) => {
 		let temperature = response.data.currently.temperature;
