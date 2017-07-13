@@ -1,5 +1,4 @@
-const newsAPI = process.env.News_API;
-
+const newsAPI = process.env.NEWS_API;
 const BOT = require("../Template/templates");
 const request = require('request');
 

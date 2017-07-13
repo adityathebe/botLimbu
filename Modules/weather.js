@@ -1,5 +1,4 @@
-
-const apiKey = process.env.NEWS_API;
+const apiKey = process.env.WEATHER_API;
 const axios = require('axios');
 const BOT = require("../Template/templates");
 
