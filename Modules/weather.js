@@ -1,3 +1,5 @@
+
+const apiKey = process.env.NEWS_API;
 const axios = require('axios');
 const BOT = require("../Template/templates");
 
@@ -12,18 +14,17 @@ const forecast = (sender, address) => {
 		BOT.sendTextMessage(sender, `Fetching Data: ${response.data.results[0].formatted_address}`);
 		let lat = response.data.results[0].geometry.location.lat;
 		let lng = response.data.results[0].geometry.location.lng;
-		let weatherUrl = `http://api.apixu.com/v1/current.json?key=c481a2b7dd8c47daaa171404171505&q=${lat},${lng}`;
-		let forecastUrl = `http://api.apixu.com/v1/forecast.json?key=c481a2b7dd8c47daaa171404171505&q=${lat},${lng}&days=3`'
+		let weatherUrl = `https://api.darksky.net/forecast/${apiKey}/${lat},${lng}`;
 		return axios.get(weatherUrl);
 	}).then((response) => {
-		let temperature = response.data.current.temp_c;
-		let apparentTemperature = response.data.current.feelslike_c;
-		let summary = response.data.current.condition.text;
-		let summaryImage = response.data.current.condition.icon.replace('//','');
+		let temperature = response.data.currently.temperature;
+		let apparentTemperature = response.data.currently.apparentTemperature;
+		let summary = response.data.currently.summary;
+		let extendedSummary = response.data.hourly.summary;
 		BOT.sendTextMessage(sender, summary).then(() => {
-			return BOT.sendImage(sender, summaryImage);
-		}).then(() => {
 			return BOT.sendTextMessage(sender, `${temperature} °C but feels like ${apparentTemperature} °C.`);
+		}).then(() => {
+			return BOT.sendTextMessage(sender, `It's going to be ${extendedSummary}`);
 		}).catch((errMsg) => {
 			console.log(errMsg)
 		});
