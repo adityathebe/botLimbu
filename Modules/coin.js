@@ -1,7 +1,7 @@
 const BOT = require("../Template/templates");
 const random = require("random-js")();
 
-const sendCoinFlip = (sender, imgUrl, text) {
+const sendCoinFlip = (sender, imgUrl, text) => {
     BOT.sendImage(sender, imgUrl).then(() => {
         return BOT.sendQuickReplies(sender, {
             text : text,
