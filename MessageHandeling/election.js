@@ -30,7 +30,7 @@ const checkDuplicateLocation = () => {
 };
 
 const handle = (sender, address) => {
-    if(address == "") {
+    if(address === "") {
         BOT.sendTextMessage(sender, 'Please add the district or municipality name after election\nExample: election panchthar, election mechi');
     } else {
         if(!isDistrict(address)) {

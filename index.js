@@ -85,7 +85,7 @@ app.post("/webhook/", function (req, res) {
             if(command_exists)  {
                 switch(commandCode) {
                     case 0: // Greet
-                        BOT.myGenericReply(sender, replies[0]);
+                        BOT.sendGenericReply(sender, replies[0]);
                         break;
                     case 1: // Coin Flip
                         Coin.flip(sender);
@@ -103,7 +103,7 @@ app.post("/webhook/", function (req, res) {
                         KU.news(sender);
                         break;
                     case 6: // Introduction
-                        BOT.myGenericReply(sender, replies[3]);
+                        BOT.sendGenericReply(sender, replies[3]);
                         break;
                     case 7:
                         var aditya =   [{
@@ -116,13 +116,13 @@ app.post("/webhook/", function (req, res) {
                         BOT.sendGenericMessage(sender, aditya);
                         break;
                     case 8: // Good Byes
-                        BOT.myGenericReply(sender, replies[1]);
+                        BOT.sendGenericReply(sender, replies[1]);
                         break;
                     case 9: // My name
                         BOT.sendTextMessage(sender, "Limbu - Bot Limbu");
                         break;
                     case 10: // Compliments
-                        BOT.myGenericReply(sender, replies[2]);
+                        BOT.sendGenericReply(sender, replies[2]);
                         break;
                     case 11:
                         KU.result(sender);
@@ -148,7 +148,7 @@ app.post("/webhook/", function (req, res) {
                         Nude.send(sender);
                         break;
                     case 15:
-                        BOT.myGenericReply(sender, replies[4]);
+                        BOT.sendGenericReply(sender, replies[4]);
                         break;
                     default:
                         BOT.sendTextMessage(sender,"Figuring it out!");

@@ -179,7 +179,7 @@ const sendQuickReplies = (sender, data) => {
     })
 }
 
-const myGenericReply = (sender, data) => {
+const sendGenericReply = (sender, data) => {
     let randomNumber = random.integer(0, data.length-1);
     BOT.sendTextMessage(sender, data[randomNumber]);
 }
@@ -190,5 +190,6 @@ module.exports = {
     sendImage,
     sendGenericMessage,
     sendButtonMessage,
-    sendQuickReplies
+    sendQuickReplies,
+    sendGenericReply
 }
