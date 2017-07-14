@@ -3,30 +3,35 @@
 const token = process.env.FB_VERIFY_ACCESS_TOKEN;
 const vtoken = process.env.FB_VERIFY_TOKEN;
 
-/* ============ Modules ============= */
+/* ================== Modules ================== */
 const express       = require("express");
 const bodyParser    = require("body-parser");
 const request       = require("request");
 const random        = require("random-js")();
 
-/* ============ Tasks ============= */
+/* ================= Message samples ================== */
 const BOT           = require('./Template/templates');
+
+/* ====================== Tasks ======================= */
 const Coin          = require('./Modules/coin');
+const Election      = require('./Modules/election');
+const Entertain     = require('./Modules/entertain')
 const Kantipur      = require('./Modules/kantipur');
-const Nude          = require('./Modules/nude');
 const KU            = require('./Modules/ku');
 const News          = require('./Modules/news');
-const Election      = require('./Modules/election');
-const Weather       = require('./Modules/weather');
+const Nude          = require('./Modules/nude');
 const QFX           = require('./Modules/qfxcinema');
+const Weather       = require('./Modules/weather');
+
+/* ============ MESSAGE HANDELING ============= */
+const Payload = require('./MessageHandeling/payload');
+const MessagePayload = require('./MessageHandeling/messagePayload');
 
 /* ============ Data ============= */
-const jokes         = require("./data/jokes");
-const facts         = require("./data/facts");
-// const cmd           = require("./data/commands");
-const cmd           = require("./data/keywords");
-const rep           = require("./data/replies");
-const electionData  = require("./data/election");
+// const command           = require("./data/commands");
+const command       = require('./data/keywords');
+const replies       = require('./data/replies');
+const electionData  = require('./data/election');
 
 /* ============ News Data ============ */
 const newsKeyWord = ['bbc-news','bbc-sport','cnn','hacker-news','mashable','techcrunch'];
@@ -52,6 +57,61 @@ app.listen(app.get("port"), function() {
     console.log("Running on port", app.get("port"));
 });
 
+const operateElection = (sender, address) => {
+    if(address == "") {
+        var message = "Please add the district or municipality name after election\nExample: election panchthar, election mechi"
+        BOT.sendTextMessage(sender, message);
+    } else {
+        var isDistrict = false
+        var municipalityName;
+        var count = 0;
+        var duplicate_ids = []
+        
+        /* == Check if the address is a district and count the number of address == */
+        for (var x = 0; x < electionData.length; x++) {
+            for (var j = 0; j < electionData[x].districts.length; j++) {
+                var location = electionData[x].districts[j].name;
+                if(address == location.toLowerCase()) {
+                    isDistrict = true;
+                    municipalityName = electionData[x].districts[j].Municipalities;
+                }
+
+                // Additional Loop to check if there are two places with the same name!
+                for (var k = 0; k < electionData[x].districts[j].Municipalities.length; k++) {
+                    var muni  = electionData[x].districts[j].Municipalities[k];
+                    if(muni.english_name.toLowerCase() == address){
+                        count++;
+                        duplicate_ids.push(muni.id);
+                    }
+                }
+            }
+        }
+
+        if(!isDistrict) {
+            if(count === 1) {
+                Election.stat(sender, address, 1);                                
+            } else if (count === 0) {
+                Bot.sendTextMessage(sender, 'Sorry, could not find that place')
+            } else {
+                BOT.sendTextMessage(sender, "There are " + count + " places with that name!").then(() => {
+                    duplicate_ids.forEach((place)=> {
+                        Election.stat(sender, place, 0);
+                    });                    
+                }, (errMsg) => {
+                    console.log(errMsg);
+                });
+            }
+        } else {
+            var message = "";
+            for (var j = 0; j < municipalityName.length; j++) {
+                message += j+1 + ". " + municipalityName[j].english_name + '\n';
+            }
+            message += "\n\nExample: election " + municipalityName[0].english_name;
+            BOT.sendTextMessage(sender, message);
+        }
+    }
+};
+
 app.post("/webhook/", function (req, res) {
     let messaging_events = req.body.entry[0].messaging;
     for (let i = 0; i < messaging_events.length; i++)   {
@@ -66,10 +126,10 @@ app.post("/webhook/", function (req, res) {
             let commandCode;
             console.log("Mesage: " + text);
 
-            for(var j = 0 ; j < cmd.length ; j++)   {
-                for (var k = 0; k < cmd[j].length; k++) {
-                    if(text.search(cmd[j][k]) >= 0) {
-                        console.log(cmd[j][k] + ' exists!');
+            for(var j = 0 ; j < command.length ; j++)   {
+                for (var k = 0; k < command[j].length; k++) {
+                    if(text.search(command[j][k]) >= 0) {
+                        console.log(command[j][k] + ' exists!');
                         command_exists = true;
                         commandCode = j;
                         break;    
@@ -80,16 +140,16 @@ app.post("/webhook/", function (req, res) {
             if(command_exists)  {
                 switch(commandCode) {
                     case 0: // Greet
-                        myGenericReply(sender, rep[0]);
+                        myGenericReply(sender, replies[0]);
                         break;
                     case 1: // Coin Flip
                         Coin.flip(sender);
                         break;
                     case 2: // Jokes
-                        jokesOrFacts(sender, jokes);
+                        Entertain.sendJoke(sender, jokes);
                         break;
                     case 3: // Facts
-                        jokesOrFacts(sender, facts);
+                        Entertain.sendFact(sender, facts);
                         break;
                     case 4: // News
                         Kantipur.news(sender);
@@ -98,7 +158,7 @@ app.post("/webhook/", function (req, res) {
                         KU.news(sender);
                         break;
                     case 6: // Introduction
-                        myGenericReply(sender, rep[3]);
+                        myGenericReply(sender, replies[3]);
                         break;
                     case 7:
                         var aditya =   [{
@@ -111,13 +171,13 @@ app.post("/webhook/", function (req, res) {
                         BOT.sendGenericMessage(sender, aditya);
                         break;
                     case 8: // Good Byes
-                        myGenericReply(sender, rep[1]);
+                        myGenericReply(sender, replies[1]);
                         break;
                     case 9: // My name
                         BOT.sendTextMessage(sender, "Limbu - Bot Limbu");
                         break;
                     case 10: // Compliments
-                        myGenericReply(sender, rep[2]);
+                        myGenericReply(sender, replies[2]);
                         break;
                     case 11:
                         KU.result(sender);
@@ -143,29 +203,25 @@ app.post("/webhook/", function (req, res) {
                         Nude.send(sender);
                         break;
                     case 15:
-                        myGenericReply(sender, rep[4]);
+                        myGenericReply(sender, replies[4]);
                         break;
                     default:
                         BOT.sendTextMessage(sender,"Figuring it out!");
                 }
             }
             else {
-                /*======== Check for Quick Replies payloads ======== */
+                /*=====================================================
+                ============ HANDLE QUICK REPLIES PAYLOAD ============
+                =====================================================*/
                 if(event.message.quick_reply) {
                     let payload = event.message.quick_reply.payload;
                     console.log("Quick Replies Payload Received: " + payload)
-                    if(newsKeyWord.indexOf(payload) >= 0) {
-                        News.display(sender, payload)
-                    } else if(payload === 'PL_flipcoin') {
-                        Coin.flip(sender);
-                    } else if (payload === 'PL_adult') {
-                        Nude.send(sender);
-                    } else {
-                        console.log('Unknown Payload - QuickReplies')
-                    }
+                    MessagePayload.handle(sender, payload);                    
                 } 
 
-                /*======== Check for Weather  Data ======== */
+                /*===================================================
+                =============== CHECK FOR WEATHER DATA ==============
+                ===================================================*/
                 else if (text.search('weather') >= 0) {
                     let address = (text.replace('weather', ""));
                     address = address.trim();
@@ -174,107 +230,41 @@ app.post("/webhook/", function (req, res) {
                     } else {
                         BOT.sendTextMessage(sender, 'Please enter an address.\nExample: kathmandu weather, weather kalinchowk').then ((msg) => {
                             console.log(msg);
-                        })
+                        });
                     }
                 }
 
-                /*======== Check for Election Data ======== */
+                /*===================================================
+                =============== CHECK FOR ELECTION DATA =============
+                ===================================================*/
                 else if (text.search("election") >= 0) {
                     let address = (text.replace('election', ""));
-                    address = address.trim();
+                    operateElection(sender, address.trim());
+                }
 
-                    /* == Check if the address is empty == */
-                    if(address == "") {
-                        var temp = "Please add the district or municipality name after election\nExample: election panchthar, election mechi"
-                        BOT.sendTextMessage(sender, temp);
-                    } else {
-                        var isDistrict = false
-                        var municipalityName;
-                        var count = 0;
-                        var duplicate_ids = []
-                        
-                        /* == Check if the address is a district and count the number of address == */
-                        for (var x = 0; x < electionData.length; x++) {
-                            for (var j = 0; j < electionData[x].districts.length; j++) {
-                                var location = electionData[x].districts[j].name;
-                                if(address == location.toLowerCase()) {
-                                    isDistrict = true;
-                                    municipalityName = electionData[x].districts[j].Municipalities;
-                                }
+                /*===================================================
+                ================== INVALID COMMAND ==================
+                ===================================================*/
+                else {
+                    var errorReplies = [
+                        'I am not sure I understand. Try\n\n- "HELP" command',
+                        'Oops, I did nOt catch that. For things I can help you with, type “help”.',
+                        'Sorry, I did nOt get that. Try something like: "KU news", or type "help".'
+                    ];
 
-                                // Additional Loop to check if there are two places with the same name!
-                                for (var k = 0; k < electionData[x].districts[j].Municipalities.length; k++) {
-                                    var muni  = electionData[x].districts[j].Municipalities[k];
-                                    if(muni.english_name.toLowerCase() == address){
-                                        count++;
-                                        duplicate_ids.push(muni.id);
-                                    }
-                                }
-                            }
-                        }
-
-                        if(!isDistrict) {
-                            if(count == 1) {
-                                Election.stat(sender, address, 1);                                
-                            } else {
-                                var tempMsg = "There are " + count + " places with that name!";
-                                BOT.sendTextMessage(sender, tempMsg);
-                                duplicate_ids.forEach((place)=> {
-                                    Election.stat(sender, place, 0);
-                                })
-                            }
-                        } else {
-                            var tempData = "";
-                            for (var j = 0; j < municipalityName.length; j++) {
-                                tempData += j+1 + ". " + municipalityName[j].english_name + '\n';
-                            }
-                            tempData += "\n\nExample: election " + municipalityName[0].english_name;
-                            BOT.sendTextMessage(sender, tempData);
-                        }
-                    }
-
-                } else {
-                    var cmd_err = ["I'm not sure I understand. Try\n\n- \"help\" command",
-                                    "Oops, I didn't catch that. For things I can help you with, type \“help.\” ",
-                                    "Sorry, I didn't get that. Try something like: \"KU news\", or type \"help\""]
-
-                    var ran_num = random.integer(0,cmd_err.length-1);
-                    BOT.sendTextMessage(sender, cmd_err[ran_num]);
+                    var ranNum = random.integer(0, errorReplies.length - 1);
+                    BOT.sendTextMessage(sender, errorReplies[ranNum]);
                 }
             }
         }
 
         if (event.postback) {
-            BOT.sendTypingOn(sender);
-            let payload = event.postback.payload;
-            switch (payload) {
-                case "GET_STARTED_PAYLOAD":
-                    myGenericReply(sender, rep[3]);
-                    break;
-
-                case 'PL_kantipurNews':
-                    Kantipur.news(sender);
-                    break;
-
-                case "PL_kuNews":
-                    KU.news(sender);
-                    break;
-
-                case "PL_KuResult":
-                    KU.result(sender);
-                    break;
-            }
+            Payload.handle(sender, event.postback.payload);
         }
         continue;
     }
     res.sendStatus(200)
 })
-
-function jokesOrFacts(sender, data) {
-    let randomNumber = random.integer(0, data.length-1);
-    let mesage = data[randomNumber];
-    BOT.sendTextMessage(sender, mesage);
-}
 
 function myGenericReply(sender, data) {
     let randomNumber = random.integer(0, data.length-1);
