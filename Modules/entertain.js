@@ -13,10 +13,6 @@ const sendQuickReply = (sender, message, title, payload) => {
 	            "payload" : payload
 	        }
 	    ]
-    }).then((successMsg) => {
-        console.log(`SUCCESS: ${successMsg}`);
-    }, (errMsg) => {
-        console.log(`ERROR: ${errMsg}`);
     });
 };
 
