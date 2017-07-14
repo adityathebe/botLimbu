@@ -4,6 +4,7 @@
 
 "use strict";
 const request = require('request');
+const random  = require("random-js")();
 
 const token = process.env.FB_VERIFY_ACCESS_TOKEN;
 const vtoken = process.env.FB_VERIFY_TOKEN;
@@ -176,6 +177,11 @@ const sendQuickReplies = (sender, data) => {
             reject(errMsg);
         });
     })
+}
+
+const myGenericReply = (sender, data) => {
+    let randomNumber = random.integer(0, data.length-1);
+    BOT.sendTextMessage(sender, data[randomNumber]);
 }
 
 module.exports = {

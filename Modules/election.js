@@ -3,7 +3,7 @@ const BOT = require("../Template/templates");
 
 const stat = (txt, place, identifier) => {
     let url;
-    if(identifier == 1)     // Search by locationName
+    if(identifier === 'byLocation')     // Search by locationName
         url = "https://electionnepal.herokuapp.com/location/" + place;
     else                    // Search by locationID
         url  = "https://electionnepal.herokuapp.com/id/" + place;
