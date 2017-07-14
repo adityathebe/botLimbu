@@ -31,3 +31,8 @@ const sendFact = (sender) => {
     let mesage = facts[randomNumber];
     sendQuickReply(sender, message, 'Another Fact', 'PL_fact');
 }
+
+module.exports = {
+	sendJoke,
+	sendFact
+}
