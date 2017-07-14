@@ -181,7 +181,7 @@ const sendQuickReplies = (sender, data) => {
 
 const sendGenericReply = (sender, data) => {
     let randomNumber = random.integer(0, data.length-1);
-    BOT.sendTextMessage(sender, data[randomNumber]);
+    sendTextMessage(sender, data[randomNumber]);
 }
 
 module.exports = {
