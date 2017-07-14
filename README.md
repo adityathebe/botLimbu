@@ -1,6 +1,9 @@
 # BOTLIMBU
 A Utility Messenger Bot
 
+![Preview](https://raw.githubusercontent.com/adityathebe/botLimbu/master/data/img/main.jpg)
+
+
 ## Modules
 
 | SN | Sample Query | Source (w/ Attribution) |
@@ -27,14 +30,5 @@ A Utility Messenger Bot
 
 ### Screenshots
 
-> Latest News 
-> ![Latest News](https://raw.githubusercontent.com/adityathebe/botLimbu/master/data/img/screenshot_1.png)
-
-> Weather data 
-> ![Weather Data](https://raw.githubusercontent.com/adityathebe/botLimbu/master/data/img/screenshot_2.png)
-
-> Nepal News 
-> ![Nepal News](https://raw.githubusercontent.com/adityathebe/botLimbu/master/data/img/screenshot_3.png)
-
-> QFX Cinema information 
-> ![QFX Cinema](https://raw.githubusercontent.com/adityathebe/botLimbu/master/data/img/screenshot_4.png)
+![](https://raw.githubusercontent.com/adityathebe/botLimbu/master/data/img/main2.jpg)
+![](https://raw.githubusercontent.com/adityathebe/botLimbu/master/data/img/main3.jpg)
