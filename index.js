@@ -129,7 +129,7 @@ app.post("/webhook/", function (req, res) {
             for(var j = 0 ; j < command.length ; j++)   {
                 for (var k = 0; k < command[j].length; k++) {
                     if(text.search(command[j][k]) >= 0) {
-                        console.log(command[j][k] + ' exists!');
+                        console.log(`The command ${command[j][k]} exists!`);
                         command_exists = true;
                         commandCode = j;
                         break;    

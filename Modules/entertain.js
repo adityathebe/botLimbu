@@ -22,13 +22,13 @@ const sendQuickReply = (sender, message, title, payload) => {
 
 const sendJoke = (sender) => {
 	let randomNumber = random.integer(0, jokes.length - 1);
-    let mesage = jokes[randomNumber];
+    let message = jokes[randomNumber];
     sendQuickReply(sender, message, 'Another Joke', 'PL_joke');
 };
 
 const sendFact = (sender) => {
 	let randomNumber = random.integer(0, facts.length - 1);
-    let mesage = facts[randomNumber];
+    let message = facts[randomNumber];
     sendQuickReply(sender, message, 'Another Fact', 'PL_fact');
 }
 
