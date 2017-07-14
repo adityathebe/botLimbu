@@ -16,7 +16,7 @@ var isDistrict = (address) => {
     }
 };
 
-const checkDuplicateLocation = () => {
+const checkDuplicateLocation = (address) => {
     for (province of electionData) {
         for (district of province.districts) {
             for (municipality of district.Municipalities) {
@@ -33,7 +33,7 @@ const handle = (sender, address) => {
         BOT.sendTextMessage(sender, 'Please add the district or municipality name after election\nExample: election panchthar, election mechi');
     } else {
         if(!isDistrict(address)) {
-            checkDuplicateLocation();
+            checkDuplicateLocation(address);
             if (duplicateIDs.length === 0) {
                 BOT.sendTextMessage(sender, 'Sorry, I could not find that place')
             } else if (duplicateIDs.length === 1) {
