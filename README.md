@@ -3,6 +3,12 @@ A Utility Messenger Bot
 
 ![Preview](https://raw.githubusercontent.com/adityathebe/botLimbu/master/data/img/main.jpg)
 
+### Video Demo
+
+[Demo](https://www.youtube.com/watch?v=mBmrsOVNC20)
+
+![Fetch Weather](https://j.gifs.com/Anvxm1.gif)
+![Nepal News](https://j.gifs.com/GZBEYQ.gif)
 
 ## Modules
 
@@ -22,10 +28,11 @@ A Utility Messenger Bot
 ### Structure
 
 ```sh
-├── Modules/          # home for various features
-├── data/             # home for shared data
-├── Templates/        # for sending structured messages
-└── index.js          # the main bot
+├── Modules/          	# home for various features
+├── data/             	# home for shared data
+├── Templates/        	# for sending structured messages
+├── MessageHandeling/	# Handle Payloads and commandless messages
+└── index.js          	# the main bot
 ```
 
 ### Screenshots

@@ -31,7 +31,6 @@ const Election = require('./MessageHandeling/election');
 // const command           = require("./data/commands");
 const command       = require('./data/keywords');
 const replies       = require('./data/replies');
-const electionData  = require('./data/election');
 
 /* ============ News Data ============ */
 const newsKeyWord = ['bbc-news','bbc-sport','cnn','hacker-news','mashable','techcrunch'];

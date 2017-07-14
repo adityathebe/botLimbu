@@ -13,7 +13,7 @@ module.exports = [
     ['name'], // Name command
     ['cool', 'awesome', 'wonderful', 'amazing', 'impressive', 'great', 'nice', 'wow', 'intelligent', 'hilarious'], // COmpliments
     ['result'],
-    ['news'],
+    ['latest news', 'breaking news', 'tech news', 'trending news'],
     ['qfx', 'movie'],
     ['nude'],
     ['haha','hehe','funny']
