@@ -169,11 +169,13 @@ const sendQuickReplies = (sender, data) => {
             "quick_replies": data.element,
         }
     }
-    callSendApi(messageData).then( (msg) => {
-        console.log(msg);
-    }, (errMsg) => {
-        console.log(errMsg);
-    });
+    return new Promise((resolve, reject) => {
+        callSendApi(messageData).then( (msg) => {
+            resolve(msg);
+        }, (errMsg) => {
+            reject(errMsg);
+        });
+    })
 }
 
 module.exports = {
