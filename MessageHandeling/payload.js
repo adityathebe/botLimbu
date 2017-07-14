@@ -1,7 +1,7 @@
 const BOT       = require("../Template/templates");
-const Kantipur  = require('./Modules/kantipur');
-const KU        = require('./Modules/ku');
-const replies   = require('./data/replies');
+const Kantipur  = require('../Modules/kantipur');
+const KU        = require('../Modules/ku');
+const replies   = require('../data/replies');
 
 const myGenericReply = (sender, data) => {
     let randomNumber = random.integer(0, data.length - 1);

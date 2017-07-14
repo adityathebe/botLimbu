@@ -1,8 +1,8 @@
 const BOT           = require("../Template/templates");
-const Coin          = require('./Modules/coin');
-const Nude          = require('./Modules/nude');
-const Entertain     = require('./Modules/entertain');
-const News          = require('./Modules/news');
+const Coin          = require('../Modules/coin');
+const Nude          = require('../Modules/nude');
+const Entertain     = require('../Modules/entertain');
+const News          = require('../Modules/news');
 
 const newsKeyWord = ['bbc-news','bbc-sport','cnn','hacker-news','mashable','techcrunch'];
 
