@@ -19,7 +19,7 @@ var isDistrict = (address) => {
 const checkDuplicateLocation = () => {
     for (province of electionData) {
         for (district of province.districts) {
-            for (municipality of district.municipalities) {
+            for (municipality of district.Municipalities) {
                 if(municipality.english_name.toLowerCase() === address) {
                     duplicateIDs.push(municipality.id);
                 }

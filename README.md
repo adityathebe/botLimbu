@@ -13,7 +13,7 @@ A Utility Messenger Bot
 | 6 | Nepal news | Powered by Kantipur News |
 | 7 | KU news | Self API |
 | 8 | KU result | Self API |
-| 9 | weather in kathmandu | [APIXU](https://www.apixu.com) |
+| 9 | weather in kathmandu | [DarkSky](https://www.darksky.net) |
 | 10 | mechi election | Self API |
 
 ### Structure
