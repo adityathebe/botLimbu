@@ -146,10 +146,10 @@ app.post("/webhook/", function (req, res) {
                         Coin.flip(sender);
                         break;
                     case 2: // Jokes
-                        Entertain.sendJoke(sender, jokes);
+                        Entertain.sendJoke(sender);
                         break;
                     case 3: // Facts
-                        Entertain.sendFact(sender, facts);
+                        Entertain.sendFact(sender);
                         break;
                     case 4: // News
                         Kantipur.news(sender);
