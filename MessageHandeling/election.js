@@ -3,13 +3,13 @@ const electionData  = require('../data/election');
 const Election      = require('../Modules/election');
 
 let duplicateIDs = [];
-let municipality;   // Array of municipalities
+let municipalities;   // Array of Municipalities
 
 var isDistrict = (address) => {
-    for (province of election) {
+    for (province of electionData) {
         for (district of province.districts) {
             if(address === district.name.toLowerCase()) {
-                municipality = district.Municipalities;
+                municipalities = district.Municipalities;
                 return true;
             }
         }
@@ -17,12 +17,11 @@ var isDistrict = (address) => {
 };
 
 const checkDuplicateLocation = () => {
-    for (var i = 0; i < electionData.length; i++) {
-        for (var j = 0; j < electionData[i].districts.length; j++) {
-            for (var k = 0; k < electionData[i].districts[j].Municipalities.length; k++) {
-                var muni = electionData[i].districts[j].Municipalities[k];
-                if(muni.english_name.toLowerCase() === address){
-                    duplicateIDs.push(muni.id);
+    for (province of electionData) {
+        for (district of province.districts) {
+            for (municipality of district.municipalities) {
+                if(municipality.english_name.toLowerCase() === address) {
+                    duplicateIDs.push(municipality.id);
                 }
             }
         }
@@ -36,11 +35,11 @@ const handle = (sender, address) => {
         if(!isDistrict(address)) {
             checkDuplicateLocation();
             if (duplicateIDs.length === 0) {
-                BOT.sendTextMessage(sender, 'Sorry, could not find that place')
+                BOT.sendTextMessage(sender, 'Sorry, I could not find that place')
             } else if (duplicateIDs.length === 1) {
                 Election.stat(sender, address, 'byLocation'); 
             } else {
-                BOT.sendTextMessage(sender, "There are " + count + " places with that name!").then(() => {
+                BOT.sendTextMessage(sender, `There are ${duplicateIDs.length} places with that name!`).then(() => {
                     for (place of duplicateIDs) {
                         Election.stat(sender, place, 'byID');
                     }
@@ -50,10 +49,10 @@ const handle = (sender, address) => {
             }
         } else {
             var message = "";
-            for (var j = 0; j < municipality.length; j++) {
-                message += j+1 + ". " + municipality[j].english_name + '\n';
+            for (var j = 0; j < municipalities.length; j++) {
+                message += j+1 + ". " + municipalities[j].english_name + '\n';
             }
-            message += "\n\nExample: election " + municipality[0].english_name;
+            message += "\n\nExample: election " + municipalities[0].english_name;
             BOT.sendTextMessage(sender, message);
         }
     }
