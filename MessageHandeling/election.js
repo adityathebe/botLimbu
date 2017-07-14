@@ -2,6 +2,7 @@ const BOT           = require("../Template/templates");
 const electionData  = require('../data/election');
 const Election      = require('../Modules/election');
 
+let duplicateIDs = [];
 let municipalities;   // Array of Municipalities
 
 var isDistrict = (address) => {
@@ -28,7 +29,7 @@ const checkDuplicateLocation = (address) => {
 };
 
 const handle = (sender, address) => {
-    let duplicateIDs = [];
+    duplicateIDs = [];
     if(address === "") {
         BOT.sendTextMessage(sender, 'Please add the district or municipality name after election\nExample: election panchthar, election mechi');
     } else {
