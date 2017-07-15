@@ -3,7 +3,7 @@ const Coin          = require('../Modules/coin');
 const Nude          = require('../Modules/nude');
 const Entertain     = require('../Modules/entertain');
 const News          = require('../Modules/news');
-const QFX           = require('./Modules/qfxcinema');
+const QFX           = require('../Modules/qfxcinema');
 
 const newsKeyWord = ['bbc-news','bbc-sport','cnn','hacker-news','mashable','techcrunch'];
 
