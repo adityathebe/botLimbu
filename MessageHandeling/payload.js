@@ -7,7 +7,9 @@ const handle = (sender, payload) => {
     BOT.sendTypingOn(sender);
     switch (payload) {
         case 'GET_STARTED_PAYLOAD':
-            BOT.myGenericReply(sender, replies[3]);
+            BOT.getUserData(sender).then((data) => {
+                BOT.sendGenericReply(sender, 'Hi ' + data.first_name + '\n' + replies[3]);
+            });
             break;
 
         case 'PL_kantipurNews':
