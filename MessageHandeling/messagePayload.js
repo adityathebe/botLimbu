@@ -3,6 +3,7 @@ const Coin          = require('../Modules/coin');
 const Nude          = require('../Modules/nude');
 const Entertain     = require('../Modules/entertain');
 const News          = require('../Modules/news');
+const QFX           = require('./Modules/qfxcinema');
 
 const newsKeyWord = ['bbc-news','bbc-sport','cnn','hacker-news','mashable','techcrunch'];
 
@@ -17,6 +18,10 @@ const handle = (sender, payload) => {
         Entertain.sendJoke(sender);
     } else if (payload === 'PL_fact') {
         Entertain.sendFact(sender);
+    } else if (payload === 'PL_onCinema') {
+        QFX.fetch(sender, 'onCinema');
+    } else if (payload === 'PL_comingSoon') {
+        QFX.fetch(sender, 'comingSoon');
     } else {
         console.log('Unknown Payload - QuickReplies');
     }

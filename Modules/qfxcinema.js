@@ -1,7 +1,29 @@
 const request = require('request');
 const BOT = require("../Template/templates");
 
-const fetch = (sender) => {
+const choice = (sender) => {
+    BOT.sendQuickReplies(sender, { 
+        text : 'Choose one of the following',
+        element : [
+            {
+                "content_type"  : "text",
+                "title"         : 'On Cinema',
+                "payload"       : 'PL_onCinema'
+            },
+            {
+                "content_type"  : "text",
+                "title"         : 'Coming Soon',
+                "payload"       : 'PL_comingSoon'
+            }
+        ]
+    }).then((msg) => {
+        console.log(msg);
+    },(errMsg) => {
+        console.log(errMsg);
+    });
+};
+
+const fetch = (sender, option) => {
     const url = 'https://qfx-nepal.herokuapp.com/';
     let moviesPayload = [];
     let upcomingMoviesPayload = [];
@@ -31,16 +53,23 @@ const fetch = (sender) => {
                 })
             }
             
-            BOT.sendTextMessage(sender, 'On Cinema: ').then(() => {
-                BOT.sendGenericMessage(sender, moviesPayload).then(() => {
-                    BOT.sendTextMessage(sender, 'Coming Soon: ').then(() => {
-                        BOT.sendGenericMessage(sender, upcomingMoviesPayload).then((msg) => {
-                            console.log(msg);
-                        });
-                    });                    
+            if(option === 'onCinema') {
+                BOT.sendTextMessage(sender, 'On Cinema: ').then(() => {
+                    return BOT.sendGenericMessage(sender, moviesPayload);
+                }).then((msg) => {
+                    console.log(msg);
+                }).catch((errMsg) => {
+                    console.log(errMsg);
+                });                  
+            } else if (option === 'comingSoon') {
+                BOT.sendTextMessage(sender, 'Coming Soon: ').then(() => {
+                    return BOT.sendGenericMessage(sender, upcomingMoviesPayload);
+                }).then((msg) => {
+                    console.log(msg);
+                }).catch((errMsg) => {
+                    console.log(errMsg);
                 });
-            });
-
+            }
         } else {
             BOT.sendTextMessage(sender, 'Sorry, could not connect to the server.\nPlease try again later');
         }
@@ -48,5 +77,6 @@ const fetch = (sender) => {
 }
 
 module.exports = {
-    fetch
+    fetch,
+    choice
 }

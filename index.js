@@ -4,10 +4,10 @@ const token = process.env.FB_VERIFY_ACCESS_TOKEN;
 const vtoken = process.env.FB_VERIFY_TOKEN;
 
 /* ================== Modules ================== */
-const express       = require("express");
-const bodyParser    = require("body-parser");
-const request       = require("request");
-const random        = require("random-js")();
+const express       = require('express');
+const bodyParser    = require('body-parser');
+const request       = require('request');
+const random        = require('random-js')();
 
 /* ================= Message samples ================== */
 const BOT           = require('./Template/templates');
@@ -141,7 +141,7 @@ app.post("/webhook/", function (req, res) {
                         });
                         break;
                     case 13:
-                        QFX.fetch(sender);
+                        QFX.choice(sender);
                         break;
                     case 14:
                         Nude.send(sender);

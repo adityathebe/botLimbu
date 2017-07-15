@@ -60,7 +60,7 @@ var sendTextMessage = function(sender, messageText) {
 
     return new Promise((resolve, reject) => {
         callSendApi(messageData).then( (msg) => {
-            resolve(msg);
+            resolve('Successfully sent Text Message');
         }, (errMsg) => {
             reject(errMsg);
         });
@@ -83,7 +83,7 @@ var sendImage = function(sender, imgUrl) {
     }
     return new Promise((resolve, reject) => {
         callSendApi(messageData).then((msg) => {
-            resolve(msg);
+            resolve('Successfully sent Image');
         }, (errMsg) => {
             reject(errMsg);
         });
