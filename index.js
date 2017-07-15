@@ -102,7 +102,9 @@ app.post("/webhook/", function (req, res) {
                         KU.news(sender);
                         break;
                     case 6: // Introduction
-                        BOT.sendGenericReply(sender, replies[3]);
+                        BOT.getUserData(sender).then((data) => {
+                            BOT.sendGenericReply(sender, `Hi ${data.first_name} \n ${replies[3]}`);
+                        });
                         break;
                     case 7:
                         var aditya =   [{
