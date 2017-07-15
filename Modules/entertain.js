@@ -2,6 +2,7 @@ const BOT		= require("../Template/templates");
 const random 	= require("random-js")();
 const jokes     = require("../data/jokes");
 const facts     = require("../data/facts");
+const quotes     = require("../data/quotes");
 
 const sendQuickReply = (sender, message, title, payload) => {
 	BOT.sendQuickReplies(sender, {
@@ -32,7 +33,14 @@ const sendFact = (sender) => {
     sendQuickReply(sender, message, 'Another Fact', 'PL_fact');
 };
 
+const sendQuote = (sender) => {
+	let randomNumber = random.integer(0, quotes.length - 1);
+    let message = facts[randomNumber];
+    sendQuickReply(sender, message, 'Another Quote', 'PL_quote');
+};
+
 module.exports = {
 	sendJoke,
-	sendFact
+	sendFact,
+	sendQuote
 }

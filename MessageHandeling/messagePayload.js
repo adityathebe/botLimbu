@@ -18,6 +18,8 @@ const handle = (sender, payload) => {
         Entertain.sendJoke(sender);
     } else if (payload === 'PL_fact') {
         Entertain.sendFact(sender);
+    } else if (payload === 'PL_quote') {
+        Entertain.sendQuote(sender);
     } else if (payload === 'PL_onCinema') {
         QFX.fetch(sender, 'onCinema');
     } else if (payload === 'PL_comingSoon') {
@@ -27,4 +29,4 @@ const handle = (sender, payload) => {
     }
 };
 
-module.exports = { handle }
+module.exports.handle = handle
