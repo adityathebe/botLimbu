@@ -35,7 +35,7 @@ const sendFact = (sender) => {
 
 const sendQuote = (sender) => {
 	let randomNumber = random.integer(0, quotes.length - 1);
-    let message = facts[randomNumber];
+    let message = quotes[randomNumber];
     sendQuickReply(sender, message, 'Another Quote', 'PL_quote');
 };
 
