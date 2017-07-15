@@ -103,7 +103,7 @@ app.post("/webhook/", function (req, res) {
                         break;
                     case 6: // Introduction
                         BOT.getUserData(sender).then((data) => {
-                            BOT.sendGenericReply(sender, 'Hi ' + data.first_name + '\n' + replies[3]);
+                            BOT.sendTextMessage(sender, `Hi ${data.first_name}. ${replies[3]}`);
                         }, (errMsg) => {
                             console.log(errMsg);
                         });

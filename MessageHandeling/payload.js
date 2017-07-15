@@ -8,7 +8,7 @@ const handle = (sender, payload) => {
     switch (payload) {
         case 'GET_STARTED_PAYLOAD':
             BOT.getUserData(sender).then((data) => {
-                BOT.sendGenericReply(sender, 'Hi ' + data.first_name + '\n' + replies[3]);
+                BOT.sendTextMessage(sender, `Hi ${data.first_name}. ${replies[3]}`);
             }, (errMsg) => {
                 console.log(errMsg);
             });
