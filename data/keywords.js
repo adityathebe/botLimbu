@@ -5,9 +5,9 @@ module.exports = [
 	['coin'], // Coin flip
 	['joke'], // Joke
 	['fact'], // facts
-	['nepal news', 'kantipur'], // news
-	['ku news', 'kathmandu university news'], // KU News
-	['help', 'command', 'what can you do'], // Help commands
+    ['quote'],  // Quotes
+    ['ku news', 'kathmandu university news'], // KU News
+    ['help', 'command', 'what can you do'], // Help commands
     ['creator', 'invented', 'created', 'inventor'], // creator
     ['bye'], // Good Byes
     ['name'], // Name command
@@ -16,5 +16,6 @@ module.exports = [
     ['latest news', 'breaking news', 'tech news', 'trending news'],
     ['qfx', 'movie'],
     ['nude'],
-    ['haha','hehe','funny']
+    ['haha','hehe','funny'],
+	['nepal news', 'kantipur'], // news
 ]

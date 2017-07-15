@@ -95,8 +95,8 @@ app.post("/webhook/", function (req, res) {
                     case 3: // Facts
                         Entertain.sendFact(sender);
                         break;
-                    case 4: // News
-                        Kantipur.news(sender);
+                    case 4: // Quotes
+                        Entertain.sendQuote(sender);
                         break;
                     case 5: // KU News
                         KU.news(sender);
@@ -152,6 +152,9 @@ app.post("/webhook/", function (req, res) {
                         break;
                     case 15:
                         BOT.sendGenericReply(sender, replies[4]);
+                        break;
+                    case 16:
+                        Kantipur.news(sender);
                         break;
                     default:
                         BOT.sendTextMessage(sender,"Figuring it out!");

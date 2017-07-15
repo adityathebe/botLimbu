@@ -2,7 +2,7 @@ const BOT		= require("../Template/templates");
 const random 	= require("random-js")();
 const jokes     = require("../data/jokes");
 const facts     = require("../data/facts");
-const quotes     = require("../data/quotes");
+const quotes    = require("../data/quotes");
 
 const sendQuickReply = (sender, message, title, payload) => {
 	BOT.sendQuickReplies(sender, {
