@@ -1,5 +1,5 @@
 const apiai = require('apiai');
-const app = apiai("5224b6598e8b45858b9babb233c4f0f6");
+const app = apiai(process.env.APIAI);
 
 const callAPI = (query) => {
     return new Promise((resolve, reject) => {

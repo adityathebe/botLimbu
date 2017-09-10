@@ -74,7 +74,7 @@ app.post("/webhook/", function (req, res) {
             console.log("Mesage: " + text);
             callAPI(text).then((ai_data) => {
                 if(ai_data.action) {
-                    sendTextMessage(ai_data.speech);
+                    BOT.sendTextMessage(ai_data.speech);
                 } else {
                     let commandCode = command.indexOf(ai_data.intent);
                     if(commandCode >= 0) {
@@ -201,6 +201,8 @@ app.post("/webhook/", function (req, res) {
                         }
                     }
                 }
+            }, (err) => {
+                BOT.sendTextMessage('Maintainance mode ...')
             });
         }
 
