@@ -16,3 +16,7 @@ const callAPI = (query) => {
         }).end();      
     });
 };
+
+modeul.exports = {
+    callAPI
+}
