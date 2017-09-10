@@ -150,7 +150,7 @@ router.post("/webhook/", function (req, res) {
                         }
                     } else {
                         /*============== CHECK FOR ELECTION DATA ==========*/
-                        else if (text.search("election") >= 0) {
+                        if (text.search("election") >= 0) {
                             let address = (text.replace('election', ""));
                             Election.handle(sender, address.trim());
                         }
