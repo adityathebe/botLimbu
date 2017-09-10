@@ -4,7 +4,7 @@ const UserModel = require('../models/user');
 const BOT = require('../Template/templates.js');
 
 const subscribe = (id) => {
-    var newUser = new User({
+    var newUser = new UserModel({
         fb_id: id,
     });
 
