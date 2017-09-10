@@ -39,14 +39,14 @@ const replies = require('../data/replies');
 const newsKeyWord = ['bbc-news','bbc-sport','cnn','hacker-news','mashable','techcrunch'];
 const newsChannel = ['BBC', 'BBC Sports', "CNN", "Hacker News", 'Mashable', 'Tech Crunch'];
 
-router.get("/webhook/", function (req, res) {
+router.get("/", function (req, res) {
     if (req.query["hub.verify_token"] === vtoken) {
         res.send(req.query["hub.challenge"]);
     }
     res.send("No Access");
 });
 
-router.post("/webhook/", function (req, res) {
+router.post("/", function (req, res) {
     let messaging_events = req.body.entry[0].messaging;
     for (let i = 0; i < messaging_events.length; i++)   {
         let event = req.body.entry[0].messaging[i];
