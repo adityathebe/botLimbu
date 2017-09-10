@@ -69,7 +69,6 @@ app.post("/webhook/", function (req, res) {
             BOT.sendTypingOn(sender);
             let text = (event.message.text).toLowerCase();
             text = (text.replace(/[^a-zA-Z ]/g, "").trim());
-            let command_exists = false;
             let commandCode;
             console.log("Mesage: " + text);
             callAPI(text).then((ai_data) => {
@@ -77,11 +76,7 @@ app.post("/webhook/", function (req, res) {
                     BOT.sendTextMessage(sender, ai_data.speech);
                 } else {
                     let commandCode = command.indexOf(ai_data.intent);
-                    if (commandCode >= 0) {
-                        command_exists = true;
-                    }
-
-                    if(command_exists)  {
+                    if(commandCode >= 0)  {
                         switch(commandCode) {
                             case 0: // Flip coin
                                 Coin.flip(sender);
@@ -146,7 +141,7 @@ app.post("/webhook/", function (req, res) {
                                     BOT.sendTextMessage(sender, ai_data.speech);
                                 }
                                 break;
-                            case 17:
+                            case 12:
                                 var aditya =   [{
                                     title: "Aditya Thebe",
                                     subtitle: "Coolest Person on earth",
@@ -155,14 +150,6 @@ app.post("/webhook/", function (req, res) {
                                     btn_title: "Check out his blog"
                                 }]
                                 BOT.sendGenericMessage(sender, aditya);
-                                break;
-                            case 18: // Good Byes
-                                BOT.sendGenericReply(sender, replies[1]);
-                                break;
-                            case 15:
-                                BOT.sendGenericReply(sender, replies[4]);
-                                break;
-                            case 16:
                                 break;
                             default:
                                 BOT.sendTextMessage(sender, "Figuring it out!");
@@ -176,12 +163,7 @@ app.post("/webhook/", function (req, res) {
                             let payload = event.message.quick_reply.payload;
                             console.log("Quick Replies Payload Received: " + payload)
                             MessagePayload.handle(sender, payload);                    
-                        } 
-
-                        /*===================================================
-                        =============== CHECK FOR WEATHER DATA ==============
-                        ===================================================*/
-                        
+                        }                        
 
                         /*===================================================
                         =============== CHECK FOR ELECTION DATA =============
