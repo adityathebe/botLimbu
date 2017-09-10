@@ -9,7 +9,9 @@ const callAPI = (query) => {
             resolve({
                 speech : response.result.fulfillment.messages[0].speech,
                 action : response.result.action,
-                intent : response.result.metadata.intentName
+                intent : response.result.metadata.intentName,
+                incomplete : response.result.actionIncomplete,
+                parameters : response.result.parameters,
             });
         }).on('error', (error) => {
             reject(error);

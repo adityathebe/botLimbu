@@ -32,7 +32,7 @@ const Election = require('./MessageHandeling/election');
 
 /* ============ Data ============= */
 // const command           = require("./data/commands");
-const command       = require('./data/keywords');
+const command       = require('./data/commands');
 const replies       = require('./data/replies');
 
 /* ============ News Data ============ */
@@ -77,7 +77,7 @@ app.post("/webhook/", function (req, res) {
                     BOT.sendTextMessage(sender, ai_data.speech);
                 } else {
                     let commandCode = command.indexOf(ai_data.intent);
-                    if(commandCode >= 0) {
+                    if (commandCode >= 0) {
                         command_exists = true;
                     }
 
@@ -131,6 +131,22 @@ app.post("/webhook/", function (req, res) {
                             case 10:
                                 Nude.send(sender);
                                 break;
+                            case 11: // Weather
+                                if(!ai_data.incomplete) {
+                                    let address = ai_data.parameters['geo-city'];
+                                    address = address.trim();
+                                    if(address !== '') {
+                                        Weather.forecast(sender, address);
+                                    } else {
+                                        BOT.sendTextMessage(sender, 'Please enter an address.\nExample: kathmandu weather, weather kalinchowk').then ((msg) => {
+                                            console.log(msg);
+                                        });
+                                    }
+                                } else {
+                                    BOT.sendTextMessage(sender, ai_data.speech);
+                                }
+                            }
+                            break;
                             case 17:
                                 var aditya =   [{
                                     title: "Aditya Thebe",
@@ -166,17 +182,7 @@ app.post("/webhook/", function (req, res) {
                         /*===================================================
                         =============== CHECK FOR WEATHER DATA ==============
                         ===================================================*/
-                        else if (text.search('weather') >= 0) {
-                            let address = (text.replace('weather', ""));
-                            address = address.trim();
-                            if(address !== '') {
-                                Weather.forecast(sender, address);
-                            } else {
-                                BOT.sendTextMessage(sender, 'Please enter an address.\nExample: kathmandu weather, weather kalinchowk').then ((msg) => {
-                                    console.log(msg);
-                                });
-                            }
-                        }
+                        
 
                         /*===================================================
                         =============== CHECK FOR ELECTION DATA =============
