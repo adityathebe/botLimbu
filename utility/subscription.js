@@ -6,10 +6,10 @@ const token = process.env.FB_VERIFY_ACCESS_TOKEN;
 const subscribe = (id) => {
     const url = `https://graph.facebook.com/v2.10/${id}?access_token=${token}`;
     request({url, json: true}, (error, response, body) => {
-        var newUser = new UserModel({
+        var newUser = {
             name : `${body.first_name} ${body.last_name}`,
             fb_id: id
-        });
+        };
 
         UserModel.findOneAndUpdate({fb_id: newUser.fb_id}, newUser, {upsert:true}, (err, user) => {
             console.log(`Subscribing : ${id}`);
