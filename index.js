@@ -128,9 +128,8 @@ app.post("/webhook/", function (req, res) {
                                 break;
                             case 11: // Weather
                                 if(!ai_data.incomplete) {
-                                    let address = ai_data.parameters['geo-city'];
+                                    let address = ai_data.parameters['geo-city'][0];
                                     address = address.trim();
-                                    console.log('Weather address = ' + address);
                                     if(address !== '') {
                                         Weather.forecast(sender, address);
                                     } else {
@@ -151,6 +150,9 @@ app.post("/webhook/", function (req, res) {
                                     btn_title: "Check out his blog"
                                 }]
                                 BOT.sendGenericMessage(sender, aditya);
+                                break;
+                            case 13:
+                                BOT.sendGenericReply(sender, replies[3])
                                 break;
                             default:
                                 BOT.sendTextMessage(sender, "Figuring it out!");

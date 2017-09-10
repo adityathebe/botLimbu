@@ -13,5 +13,6 @@ module.exports = [
     'get-movies',   // 9
     'send-nudes',   // 10
     'get-weather',  // 11
-    'creator'       // 12
+    'creator',      // 12
+    'my-functions', // 13
 ]
