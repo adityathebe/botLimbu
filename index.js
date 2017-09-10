@@ -70,7 +70,7 @@ app.post("/webhook/", function (req, res) {
             let text = (event.message.text).toLowerCase();
             text = (text.replace(/[^a-zA-Z ]/g, "").trim());
             let commandCode;
-            console.log("Mesage: " + text);
+            console.log("Mesage: " + text + " from " + sender);
             callAPI(text).then((ai_data) => {
                 if(ai_data.action) {
                     BOT.sendTextMessage(sender, ai_data.speech);
