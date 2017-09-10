@@ -145,8 +145,7 @@ app.post("/webhook/", function (req, res) {
                                 } else {
                                     BOT.sendTextMessage(sender, ai_data.speech);
                                 }
-                            }
-                            break;
+                                break;
                             case 17:
                                 var aditya =   [{
                                     title: "Aditya Thebe",
