@@ -2,7 +2,16 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = express();
+const mongoose = require('mongoose');
+let app = express();
+
+mongoose.connect('mongodb://admin:admin123@ds153003.mlab.com:53003/messenger');
+let db = mongoose.connection;
+db.on('error', (err) => {
+    console.log(err)
+}).once('open', () => {
+    console.log('Connected to mongoDb')
+});
 
 app.set("port", (process.env.PORT || 5000));
 app.use(bodyParser.json());

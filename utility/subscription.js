@@ -31,5 +31,5 @@ const unsubscribe = (id) => {
 }
 
 module.exports = {
-    subscribe
+    subscribe, unsubscribe
 }
