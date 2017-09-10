@@ -130,6 +130,7 @@ app.post("/webhook/", function (req, res) {
                                 if(!ai_data.incomplete) {
                                     let address = ai_data.parameters['geo-city'];
                                     address = address.trim();
+                                    console.log('Weather address = ' + address);
                                     if(address !== '') {
                                         Weather.forecast(sender, address);
                                     } else {
