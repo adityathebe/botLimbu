@@ -14,7 +14,7 @@ const {callAPI} = require('../utility/api');
 const Subscribe = require('../utility/subscription');
 
 /* ================= Message samples ================== */
-const BOT       = require('../Template/templates');
+const BOT = require('../Template/templates');
 
 /* ====================== Tasks ======================= */
 const Coin          = require('../Modules/coin');
@@ -27,13 +27,13 @@ const QFX           = require('../Modules/qfxcinema');
 const Weather       = require('../Modules/weather');
 
 /* ============ MESSAGE HANDELING ============= */
-const Payload = require('../MessageHandeling/payload');
-const MessagePayload = require('../MessageHandeling/messagePayload');
-const Election = require('../MessageHandeling/election');
+const Payload           = require('../MessageHandeling/payload');
+const MessagePayload    = require('../MessageHandeling/messagePayload');
+const Election          = require('../MessageHandeling/election');
 
 /* ============ Data ============= */
-const command       = require('../data/commands');
-const replies       = require('../data/replies');
+const command = require('../data/commands');
+const replies = require('../data/replies');
 
 /* ============ News Data ============ */
 const newsKeyWord = ['bbc-news','bbc-sport','cnn','hacker-news','mashable','techcrunch'];

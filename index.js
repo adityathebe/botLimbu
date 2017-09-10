@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 let app = express();
 
-mongoose.connect('mongodb://admin:admin123@ds153003.mlab.com:53003/messenger');
+mongoose.connect('mongodb://admin:admin123@ds133044.mlab.com:33044/botlimbu');
 let db = mongoose.connection;
 db.on('error', (err) => {
     console.log(err)
