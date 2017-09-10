@@ -1,6 +1,3 @@
-var express = require('express');
-var router = express.Router();
-
 const token = process.env.FB_VERIFY_ACCESS_TOKEN;
 const vtoken = process.env.FB_VERIFY_TOKEN;
 const bot_fb_id = process.env.FB_BOT_ID;
@@ -10,13 +7,14 @@ const express       = require('express');
 const bodyParser    = require('body-parser');
 const request       = require('request');
 const random        = require('random-js')();
+var router          = express.Router();
 
 /* ================= Utilities ================== */
 const {callAPI} = require('../utility/api');
 const Subscribe = require('../utility/subscription');
 
 /* ================= Message samples ================== */
-const BOT           = require('../Template/templates');
+const BOT       = require('../Template/templates');
 
 /* ====================== Tasks ======================= */
 const Coin          = require('../Modules/coin');
