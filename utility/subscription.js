@@ -7,8 +7,8 @@ const subscribe = (id) => {
     const url = `https://graph.facebook.com/v2.10/${id}?access_token=${token}`;
     request({url, json: true}, (error, response, body) => {
         var newUser = new UserModel({
-            name: `${body.first_name} ${body.last_name}`
-            fb_id: id,
+            name: `${body.first_name} ${body.last_name}`,
+            fb_id: id
         });
 
         UserModel.findOneAndUpdate({fb_id: newUser.fb_id}, {fb_id: newUser.fb_id}, {upsert:true}, (err, user) => {
