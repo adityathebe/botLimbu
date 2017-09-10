@@ -2,14 +2,13 @@ const UserModel = require('../models/user');
 const BOT = require('../Template/templates');
 
 const subscribe = (id) => {
-    console.log(`Subscribing : ${id}`);
     var newUser = new UserModel({
         fb_id: id,
     });
 
     UserModel.findOneAndUpdate({fb_id: newUser.fb_id}, {fb_id: newUser.fb_id}, {upsert:true}, (err, user) => {
+        console.log(`Subscribing : ${id}`);
         if (err) {
-            console.log('sender: ' + id);
             console.log(err);
             BOT.sendTextMessage(id, "There was an error subscribing.");
         } else {
@@ -22,7 +21,6 @@ const subscribe = (id) => {
 const unsubscribe = (id) => {
     UserModel.findOneAndRemove({fb_id: id}, (err, user) => {
         if (err) {
-            console.log('sender: ' + id);
             console.log(err);
             BOT.sendTextMessage(id, "There was an error unsubscribing.");
         } else {

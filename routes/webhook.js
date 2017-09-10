@@ -61,7 +61,6 @@ router.post("/", function (req, res) {
             if (event.message.quick_reply) {
                 /* =========== HANDLE QUICK REPLIES PAYLOAD ============ */
                 let payload = event.message.quick_reply.payload;
-                console.log(`Payload received: ${payload}`)
                 MessagePayload.handle(sender, payload); 
             } else {
                 callAPI(text).then((ai_data) => { 

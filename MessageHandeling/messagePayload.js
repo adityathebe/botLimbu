@@ -4,8 +4,6 @@ const Nude          = require('../Modules/nude');
 const Entertain     = require('../Modules/entertain');
 const News          = require('../Modules/news');
 const QFX           = require('../Modules/qfxcinema');
-const {subscribe}   = require('../utility/subscription');
-const {unsubscribe}   = require('../utility/subscription');
 
 const newsKeyWord = ['bbc-news','bbc-sport','cnn','hacker-news','mashable','techcrunch'];
 
@@ -26,10 +24,6 @@ const handle = (sender, payload) => {
         QFX.fetch(sender, 'onCinema');
     } else if (payload === 'PL_comingSoon') {
         QFX.fetch(sender, 'comingSoon');
-    } else if (payload === 'PL_subscribe') {
-        subscribe(sender);
-    } else if (payload === 'PL_unsub') {
-        unsubscribe(sender);
     } else {
         console.log('Unknown Payload - QuickReplies');
     }
