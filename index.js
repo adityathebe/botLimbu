@@ -65,7 +65,7 @@ app.post("/webhook/", function (req, res) {
         let event = req.body.entry[0].messaging[i];
         let sender = event.sender.id;
 
-        if (event.message && event.message.text) {
+        if (event.message && event.message.text && sender != '288760001564297') {
             BOT.sendTypingOn(sender);
             let text = (event.message.text).toLowerCase();
             text = (text.replace(/[^a-zA-Z ]/g, "").trim());
