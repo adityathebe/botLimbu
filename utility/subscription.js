@@ -1,7 +1,5 @@
-const mongoose = require('mongoose');
-
 const UserModel = require('../models/user');
-const BOT = require('../Template/templates.js');
+const BOT = require('../Template/templates');
 
 const subscribe = (id) => {
     var newUser = new UserModel({
@@ -10,7 +8,7 @@ const subscribe = (id) => {
 
     UserModel.findOneAndUpdate({fb_id: newUser.fb_id}, {fb_id: newUser.fb_id}, {upsert:true}, (err, user) => {
         if (err) {
-            BOT.sendTextMessage(id, "There wan error subscribing you for daily articles");
+            BOT.sendTextMessage(id, "There was an error subscribing.");
         } else {
             console.log('User saved successfully!');
             BOT.sendTextMessage(newUser.fb_id, "You've been subscribed!")
@@ -19,10 +17,9 @@ const subscribe = (id) => {
 }
 
 const unsubscribe = (id) => {
-  // call the built-in save method to save to the database
-    UserModel.findOneAndRemove({fb_id: id}, function(err, user) {
+    UserModel.findOneAndRemove({fb_id: id}, (err, user) => {
         if (err) {
-            BOT.sendTextMessage(id, "There wan error unsubscribing you for daily articles");
+            BOT.sendTextMessage(id, "There was an error unsubscribing.");
         } else {
             console.log('User deleted successfully!');
             BOT.sendTextMessage(id, "You've been unsubscribed!")
