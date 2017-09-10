@@ -1,7 +1,7 @@
 const UserModel = require('../models/user');
 const BOT = require('../Template/templates');
 const request = require('request');
-const token = process.env.FB_VERIFY_ACCESS_TOKEN || 'EAAB6xJpFXa0BALfsNdvOqV4tBt2poTm61X2eVAZAcENC2q5aTI0TPUgGGbCCDZAxhhxBmnSXCNmeKuLE0nzeVxKe1hbOi8OAU5kud0zOpA46efhkGtFTJJh60mwZBwp7ympZA4tXoCX7PBxwzQQw415rxX2Gv34cUUaoVFFEMqvxjE9fgcwb';
+const token = process.env.FB_VERIFY_ACCESS_TOKEN;
 
 const subscribe = (id) => {
     const url = `https://graph.facebook.com/v2.10/${id}?access_token=${token}`;
