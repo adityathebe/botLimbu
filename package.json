@@ -9,12 +9,12 @@
   "author": "Aditya Thebe",
   "license": "ISC",
   "dependencies": {
+    "apiai": "^4.0.3",
+    "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "random-js": "^1.0.8",
     "request": "^2.81.0",
-    "rss-to-json": "^1.0.2",
-    "axios": "^0.16.2",
-    "apiai": "^4.0.3"
+    "rss-to-json": "^1.0.2"
   }
 }
