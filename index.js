@@ -10,6 +10,9 @@ const request       = require('request');
 const random        = require('random-js')();
 
 /* ================= Message samples ================== */
+const {callAPI} = require('./utility/api');
+
+/* ================= Message samples ================== */
 const BOT           = require('./Template/templates');
 
 /* ====================== Tasks ======================= */
@@ -69,144 +72,136 @@ app.post("/webhook/", function (req, res) {
             let command_exists = false;
             let commandCode;
             console.log("Mesage: " + text);
-
-            for(var j = 0 ; j < command.length ; j++)   {
-                for (var k = 0; k < command[j].length; k++) {
-                    if(text.search(command[j][k]) >= 0) {
-                        console.log(`The command ${command[j][k]} exists!`);
+            callAPI(text).then((ai_data) => {
+                if(ai_data.action) {
+                    sendTextMessage(ai_data.speech);
+                } else {
+                    let commandCode = command.indexOf(ai_data.intent);
+                    if(commandCode >= 0) {
                         command_exists = true;
-                        commandCode = j;
-                        break;    
                     }
-                }
-            }
 
-            if(command_exists)  {
-                switch(commandCode) {
-                    case 0: // Greet
-                        BOT.sendGenericReply(sender, replies[0]);
-                        break;
-                    case 1: // Coin Flip
-                        Coin.flip(sender);
-                        break;
-                    case 2: // Jokes
-                        Entertain.sendJoke(sender);
-                        break;
-                    case 3: // Facts
-                        Entertain.sendFact(sender);
-                        break;
-                    case 4: // Quotes
-                        Entertain.sendQuote(sender);
-                        break;
-                    case 5: // KU News
-                        KU.news(sender);
-                        break;
-                    case 6: // Introduction
-                        BOT.getUserData(sender).then((data) => {
-                            BOT.sendTextMessage(sender, `Hi ${data.first_name}. ${replies[3]}`);
-                        }, (errMsg) => {
-                            console.log(errMsg);
-                        });
-                        break;
-                    case 7:
-                        var aditya =   [{
-                            title: "Aditya Thebe",
-                            subtitle: "Coolest Person on earth",
-                            img_url: "http://i.imgur.com/AI4znI6.jpg",
-                            url: "http://adityathebe.com",
-                            btn_title: "Check out his blog"
-                        }]
-                        BOT.sendGenericMessage(sender, aditya);
-                        break;
-                    case 8: // Good Byes
-                        BOT.sendGenericReply(sender, replies[1]);
-                        break;
-                    case 9: // My name
-                        BOT.sendTextMessage(sender, "Limbu - Bot Limbu");
-                        break;
-                    case 10: // Compliments
-                        BOT.sendGenericReply(sender, replies[2]);
-                        break;
-                    case 11:
-                        KU.result(sender);
-                        break;
-                    case 12:
-                        let elements = [];
-                        for (var m = 0; m < newsChannel.length; m++) {
-                            elements.push({
-                                "content_type" : "text",
-                                "title" : newsChannel[m],
-                                "payload" : newsKeyWord[m]
-                            })
+                    if(command_exists)  {
+                        switch(commandCode) {
+                            case 0: // Flip coin
+                                Coin.flip(sender);
+                                break;
+                            case 1: // Jokes
+                                Entertain.sendJoke(sender);
+                                break;
+                            case 2: // Quotes
+                                Entertain.sendQuote(sender);
+                                break;
+                            case 3: // Facts
+                                Entertain.sendFact(sender);
+                                break;
+                            case 4: // Local News
+                                Kantipur.news(sender);
+                                break;
+                            case 5: // KU News
+                                KU.news(sender);
+                                break;
+                            case 6: // Introduction
+                                BOT.getUserData(sender).then((data) => {
+                                    BOT.sendTextMessage(sender, `Hi ${data.first_name}. ${replies[3]}`);
+                                }, (errMsg) => {
+                                    console.log(errMsg);
+                                });
+                                break;
+                            case 7:
+                                KU.result(sender);
+                                break;
+                            case 8:
+                                let elements = [];
+                                for (var m = 0; m < newsChannel.length; m++) {
+                                    elements.push({
+                                        "content_type" : "text",
+                                        "title" : newsChannel[m],
+                                        "payload" : newsKeyWord[m]
+                                    })
+                                }
+                                BOT.sendQuickReplies(sender, { 
+                                    text : 'Choose your News Source',
+                                    element : elements
+                                });
+                                break;
+                            case 9:
+                                QFX.choice(sender);
+                                break;
+                            case 10:
+                                Nude.send(sender);
+                                break;
+                            case 17:
+                                var aditya =   [{
+                                    title: "Aditya Thebe",
+                                    subtitle: "Coolest Person on earth",
+                                    img_url: "http://i.imgur.com/AI4znI6.jpg",
+                                    url: "http://adityathebe.com",
+                                    btn_title: "Check out his blog"
+                                }]
+                                BOT.sendGenericMessage(sender, aditya);
+                                break;
+                            case 18: // Good Byes
+                                BOT.sendGenericReply(sender, replies[1]);
+                                break;
+                            case 15:
+                                BOT.sendGenericReply(sender, replies[4]);
+                                break;
+                            case 16:
+                                break;
+                            default:
+                                BOT.sendTextMessage(sender, "Figuring it out!");
                         }
-                        BOT.sendQuickReplies(sender, { 
-                            text : 'Choose your News Source',
-                            element : elements
-                        });
-                        break;
-                    case 13:
-                        QFX.choice(sender);
-                        break;
-                    case 14:
-                        Nude.send(sender);
-                        break;
-                    case 15:
-                        BOT.sendGenericReply(sender, replies[4]);
-                        break;
-                    case 16:
-                        Kantipur.news(sender);
-                        break;
-                    default:
-                        BOT.sendTextMessage(sender,"Figuring it out!");
-                }
-            }
-            else {
-                /*=====================================================
-                ============ HANDLE QUICK REPLIES PAYLOAD ============
-                =====================================================*/
-                if(event.message.quick_reply) {
-                    let payload = event.message.quick_reply.payload;
-                    console.log("Quick Replies Payload Received: " + payload)
-                    MessagePayload.handle(sender, payload);                    
-                } 
+                    }
+                    else {
+                        /*=====================================================
+                        ============ HANDLE QUICK REPLIES PAYLOAD ============
+                        =====================================================*/
+                        if(event.message.quick_reply) {
+                            let payload = event.message.quick_reply.payload;
+                            console.log("Quick Replies Payload Received: " + payload)
+                            MessagePayload.handle(sender, payload);                    
+                        } 
 
-                /*===================================================
-                =============== CHECK FOR WEATHER DATA ==============
-                ===================================================*/
-                else if (text.search('weather') >= 0) {
-                    let address = (text.replace('weather', ""));
-                    address = address.trim();
-                    if(address !== '') {
-                        Weather.forecast(sender, address);
-                    } else {
-                        BOT.sendTextMessage(sender, 'Please enter an address.\nExample: kathmandu weather, weather kalinchowk').then ((msg) => {
-                            console.log(msg);
-                        });
+                        /*===================================================
+                        =============== CHECK FOR WEATHER DATA ==============
+                        ===================================================*/
+                        else if (text.search('weather') >= 0) {
+                            let address = (text.replace('weather', ""));
+                            address = address.trim();
+                            if(address !== '') {
+                                Weather.forecast(sender, address);
+                            } else {
+                                BOT.sendTextMessage(sender, 'Please enter an address.\nExample: kathmandu weather, weather kalinchowk').then ((msg) => {
+                                    console.log(msg);
+                                });
+                            }
+                        }
+
+                        /*===================================================
+                        =============== CHECK FOR ELECTION DATA =============
+                        ===================================================*/
+                        else if (text.search("election") >= 0) {
+                            let address = (text.replace('election', ""));
+                            Election.handle(sender, address.trim());
+                        }
+
+                        /*===================================================
+                        ================== INVALID COMMAND ==================
+                        ===================================================*/
+                        else {
+                            var errorReplies = [
+                                'I am not sure I understand. Try\n\n- "HELP" command',
+                                'Oops, I did not catch that. For things I can help you with, type “help”.',
+                                'Sorry, I did not get that. Try something like: "KU news", or type "help".'
+                            ];
+
+                            var ranNum = random.integer(0, errorReplies.length - 1);
+                            BOT.sendTextMessage(sender, errorReplies[ranNum]);
+                        }
                     }
                 }
-
-                /*===================================================
-                =============== CHECK FOR ELECTION DATA =============
-                ===================================================*/
-                else if (text.search("election") >= 0) {
-                    let address = (text.replace('election', ""));
-                    Election.handle(sender, address.trim());
-                }
-
-                /*===================================================
-                ================== INVALID COMMAND ==================
-                ===================================================*/
-                else {
-                    var errorReplies = [
-                        'I am not sure I understand. Try\n\n- "HELP" command',
-                        'Oops, I did not catch that. For things I can help you with, type “help”.',
-                        'Sorry, I did not get that. Try something like: "KU news", or type "help".'
-                    ];
-
-                    var ranNum = random.integer(0, errorReplies.length - 1);
-                    BOT.sendTextMessage(sender, errorReplies[ranNum]);
-                }
-            }
+            });
         }
 
         if (event.postback) {

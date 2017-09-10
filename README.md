@@ -18,12 +18,13 @@ A Utility Messenger Bot
 | 2 | tell me a fact | Offline |
 | 3 | Qfx movies | Self API |
 | 4 | tell me a joke | Offline |
-| 5 | latest news | Powered by NewsAPI |
-| 6 | Nepal news | Powered by Kantipur News |
-| 7 | KU news | Self API |
-| 8 | KU result | Self API |
-| 9 | weather in kathmandu | [DarkSky](https://www.darksky.net) |
-| 10 | mechi election | Self API |
+| 5 | quotes | Offline |
+| 6 | latest news | Powered by NewsAPI |
+| 7 | Nepal news | Powered by Kantipur News |
+| 8 | KU news | Self API |
+| 9 | KU result | Self API |
+| 10 | weather in kathmandu | [DarkSky](https://www.darksky.net) |
+| 11 | mechi election | Self API |
 
 ### Structure
 
