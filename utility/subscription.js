@@ -1,13 +1,13 @@
 const UserModel = require('../models/user');
 const BOT = require('../Template/templates');
 const request = require('request');
-const token = process.env.FB_VERIFY_ACCESS_TOKEN;
+
+const {getProfile} = require('./getprofile');
 
 const subscribe = (id) => {
-    const url = `https://graph.facebook.com/v2.10/${id}?access_token=${token}`;
-    request({url, json: true}, (error, response, body) => {
+    getProfile(id).then((data) => {
         var newUser = {
-            name : `${body.name}`,
+            name : `${data.name}`,
             fb_id: id
         };
 
@@ -21,6 +21,8 @@ const subscribe = (id) => {
                 BOT.sendTextMessage(id, "You've been subscribed!")
             }
         });
+    }, (err) => {
+        console.log('Graph API Profile Error: ' + err);
     });
 }
 

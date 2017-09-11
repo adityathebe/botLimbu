@@ -57,10 +57,13 @@ router.post("/", function (req, res) {
             Payload.handle(sender, event.postback.payload);
         } else if (event.message && event.message.text && sender != bot_fb_id) {
             let text = (event.message.text).toLowerCase().replace(/[^a-zA-Z ]/g, "").trim();
+            getProfile(sender).then((data) => {
+                console.log(`Mesage: ${text} from ${data.name}`);
+            }, (err) => {
+                console.log(`Mesage: ${text} from ${sender}`);
+            });
 
-            console.log(`Mesage: ${text} from ${sender}`);
             BOT.sendTypingOn(sender);
-
             if (event.message.quick_reply) {
                 /* =========== HANDLE QUICK REPLIES PAYLOAD ============ */
                 MessagePayload.handle(sender, event.message.quick_reply.payload); 
