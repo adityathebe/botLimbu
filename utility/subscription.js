@@ -7,7 +7,7 @@ const subscribe = (id) => {
     const url = `https://graph.facebook.com/v2.10/${id}?access_token=${token}`;
     request({url, json: true}, (error, response, body) => {
         var newUser = {
-            name : `${body.first_name} ${body.last_name}`,
+            name : `${body.name}`,
             fb_id: id
         };
 
