@@ -18,7 +18,7 @@ const subscribe = (id) => {
                 BOT.sendTextMessage(id, "There was an error subscribing.");
             } else {
                 console.log('User saved successfully!');
-                BOT.sendTextMessage(newUser.fb_id, "You've been subscribed!")
+                BOT.sendTextMessage(id, "You've been subscribed!")
             }
         });
     });

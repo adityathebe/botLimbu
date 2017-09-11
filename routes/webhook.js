@@ -57,12 +57,8 @@ router.post("/", function (req, res) {
             Payload.handle(sender, event.postback.payload);
         } else if (event.message && event.message.text && sender != bot_fb_id) {
             let text = (event.message.text).toLowerCase().replace(/[^a-zA-Z ]/g, "").trim();
-            
-            const url = `https://graph.facebook.com/v2.10/${sender}?access_token=${token}`;
-            request({url, json: true}, (error, response, body) => {
-                console.log(`Mesage: ${text} from ${body.first_name} ${body.last_name}`);
-            });
 
+            console.log(`Mesage: ${text} from ${sender}`);
             BOT.sendTypingOn(sender);
 
             if (event.message.quick_reply) {
