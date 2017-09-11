@@ -51,21 +51,30 @@ router.post("/", function (req, res) {
     for (let i = 0; i < messaging_events.length; i++)   {
         let event = req.body.entry[0].messaging[i];
         let sender = event.sender.id;
+        let commandCode;
+        
+        if (event.postback) {
+            Payload.handle(sender, event.postback.payload);
+        } else if (event.message && event.message.text && sender != bot_fb_id) {
+            const url = `https://graph.facebook.com/v2.10/${sender}?access_token=${token}`;
+            request({url, json: true}, (error, response, body) => {
+                console.log(`Mesage: ${text} from ${body.first_name} ${body.last_name}`);
+            });
 
-        if (event.message && event.message.text && sender != bot_fb_id) {
             BOT.sendTypingOn(sender);
-            let text = (event.message.text).toLowerCase();
-            text = (text.replace(/[^a-zA-Z ]/g, "").trim());
-            let commandCode;
-            console.log("Mesage: " + text + " from " + sender);
+            let text = (event.message.text).toLowerCase().replace(/[^a-zA-Z ]/g, "").trim();
+
             if (event.message.quick_reply) {
                 /* =========== HANDLE QUICK REPLIES PAYLOAD ============ */
-                let payload = event.message.quick_reply.payload;
-                MessagePayload.handle(sender, payload); 
+                MessagePayload.handle(sender, event.message.quick_reply.payload); 
             } else {
                 callAPI(text).then((ai_data) => { 
                     if(ai_data.action) {
-                        BOT.sendTextMessage(sender, ai_data.speech);
+                        BOT.sendTextMessage(sender, ai_data.speech).then((msg) => {
+                            console.log(msg);
+                        }, (err) => {
+                            console.log(JSON.stringify(err));
+                        });
                     } else {
                         let commandCode = command.indexOf(ai_data.intent);
                         if(commandCode >= 0)  {
@@ -170,13 +179,13 @@ router.post("/", function (req, res) {
                         }
                     }
                 }, (err) => {
-                    BOT.sendTextMessage(sender, 'Maintainance mode ...')
+                    BOT.sendTextMessage(sender, 'Maintainance mode ...').then((msg) => {
+                        console.log(msg);
+                    }, (err) => {
+                        console.log(JSON.stringify(err));
+                    });
                 });
             }
-        }
-
-        if (event.postback) {
-            Payload.handle(sender, event.postback.payload);
         }
         continue;
     }
