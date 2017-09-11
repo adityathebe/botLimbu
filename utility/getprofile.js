@@ -1,3 +1,4 @@
+const request = require('request');
 const token = process.env.FB_VERIFY_ACCESS_TOKEN;
 
 const getProfile = (id) => {

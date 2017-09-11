@@ -1,6 +1,5 @@
 const UserModel = require('../models/user');
 const BOT = require('../Template/templates');
-const request = require('request');
 
 const {getProfile} = require('./getprofile');
 
