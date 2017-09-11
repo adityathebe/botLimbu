@@ -8,7 +8,7 @@ const getProfile = (id) => {
                 return reject(error)
             }
             resolve(body);
-        };
+        });
     });
 };
 

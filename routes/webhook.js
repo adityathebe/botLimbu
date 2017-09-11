@@ -12,6 +12,7 @@ var router          = express.Router();
 /* ================= Utilities ================== */
 const {callAPI} = require('../utility/api');
 const Subscribe = require('../utility/subscription');
+const {getProfile} = require('../utility/getprofile');
 
 /* ================= Message samples ================== */
 const BOT = require('../Template/templates');
