@@ -15,4 +15,5 @@ module.exports = [
     'get-weather',  // 11
     'creator',      // 12
     'my-functions', // 13
+    'get-distance', // 14
 ]

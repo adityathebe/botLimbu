@@ -26,6 +26,7 @@ const News          = require('../Modules/news');
 const Nude          = require('../Modules/nude');
 const QFX           = require('../Modules/qfxcinema');
 const Weather       = require('../Modules/weather');
+const {getDistance} = require('../Modules/getDistance');
 
 /* ============ MESSAGE HANDELING ============= */
 const Payload           = require('../MessageHandeling/payload');
@@ -158,7 +159,10 @@ router.post("/", function (req, res) {
                                     BOT.sendGenericMessage(sender, aditya);
                                     break;
                                 case 13:
-                                    BOT.sendGenericReply(sender, replies[3])
+                                    BOT.sendGenericReply(sender, replies[0])
+                                    break;
+                                case 14 : // get distance
+                                    getDistance(sender, ai_data.parameters.places);
                                     break;
                                 default:
                                     BOT.sendTextMessage(sender, "Figuring it out!");
