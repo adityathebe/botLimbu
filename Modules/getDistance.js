@@ -1,5 +1,5 @@
 const BOT = require("../Template/templates");
-const {get_distance} = require('.//utility/google-direction');
+const {get_distance} = require('../utility/google-direction');
 
 const getDistance = (sender, places) => {
     get_distance(places[0], places[1]).then((data) => {
