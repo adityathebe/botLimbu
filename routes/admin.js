@@ -11,16 +11,21 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    UserModel.find({}, (err, users) => {
-        for(user of users) {
-            sendTextMessage(user.fb_id, req.body.message).then((msg) => {
-                console.log(`Message sent to ${user.name}`);
-            }, (error) => {
-                console.log(error);
-            });
-        };
-    });
-    res.redirect('/admin');
+    if(req.body.secret === process.env.MSG_SECRET) {
+        UserModel.find({}, (err, users) => {
+            for(user of users) {
+                sendTextMessage(user.fb_id, req.body.message).then((msg) => {
+                    console.log(`Message sent to ${user.name}`);
+                }, (error) => {
+                    console.log(error);
+                });
+            };
+        });
+        res.redirect('/admin');        
+    } else {
+        console.log('Invalid Secret Message!');
+        res.redirect('/admin');
+    }
 });
 
 module.exports = router;
