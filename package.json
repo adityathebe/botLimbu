@@ -14,8 +14,12 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "mongoose": "^4.11.10",
+    "pug": "^2.0.0-rc.4",
     "random-js": "^1.0.8",
     "request": "^2.81.0",
     "rss-to-json": "^1.0.2"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0"
   }
 }

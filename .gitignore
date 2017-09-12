@@ -1,3 +1,4 @@
+.env
 sampleModels
 node_modules
 Modules/quiz.js

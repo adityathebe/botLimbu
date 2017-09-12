@@ -57,11 +57,15 @@ router.post("/", function (req, res) {
         if (event.postback) {
             Payload.handle(sender, event.postback.payload);
         } else if (event.message && event.message.text && sender != bot_fb_id) {
-            let text = (event.message.text).toLowerCase().replace(/[^a-zA-Z ]/g, "").trim();
+            let text = (event.message.text).toLowerCase().trim();
+            
             getProfile(sender).then((data) => {
-                console.log(`Mesage: ${text} from ${data.name}`);
+                if(data.first_name)
+                    console.log(`Message sent to ${data.first_name}`);
+                else
+                    console.log(`Message sent to ${data.name}`);
             }, (err) => {
-                console.log(`Mesage: ${text} from ${sender}`);
+                console.log(err);
             });
 
             BOT.sendTypingOn(sender);

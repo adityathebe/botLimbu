@@ -5,10 +5,13 @@ const {getProfile} = require('./getprofile');
 
 const subscribe = (id) => {
     getProfile(id).then((data) => {
-        var newUser = {
-            name : `${data.name}`,
-            fb_id: id
-        };
+        var newUser = {}
+        newUser.fb_id = id;
+        if(data.name) {
+            newUser.name = data.name;
+        } else {
+            newUser.name = `${data.first_name} ${data.last_name}`
+        }
 
         UserModel.findOneAndUpdate({fb_id: newUser.fb_id}, newUser, {upsert:true}, (err, user) => {
             console.log(`Subscribing : ${id}`);
