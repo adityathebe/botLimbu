@@ -24,7 +24,7 @@ const get_distance = (start, end) => {
                 resolve(data);                
             } 
             catch(err) {
-                reject('Invalid Addresses');
+                reject('Two address required!');
             }
         })
     });    

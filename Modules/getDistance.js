@@ -9,6 +9,9 @@ const getDistance = (sender, places) => {
             }).catch((err) => {
                 console.log(err);
             });
+        }, (err) => {
+            console.log(err);
+            BOT.sendTextMessage(sender, `Sorry I couldn't get the adress`);
         });        
     } else {
         BOT.sendTextMessage(sender, `Sorry I couldn't get the address`).then((msg) => {
