@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV != 'production') {
-    require('dotenv').config();
-}
+process.env.NODE_ENV != 'production' ? require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,7 +6,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 let app = express();
 
-mongoose.connect('mongodb://admin:admin123@ds133044.mlab.com:33044/botlimbu');
+mongoose.connect(MLAB_URL);
 let db = mongoose.connection;
 db.on('error', (err) => {
     console.log(err)
