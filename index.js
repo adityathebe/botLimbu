@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 let app = express();
 
-mongoose.connect(MLAB_URL);
+mongoose.connect(process.env.MLAB_URL);
 let db = mongoose.connection;
 db.on('error', (err) => {
     console.log(err)
