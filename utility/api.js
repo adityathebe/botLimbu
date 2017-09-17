@@ -19,6 +19,4 @@ const callAPI = (query) => {
     });
 };
 
-module.exports = {
-    callAPI
-}
+module.exports = callAPI;

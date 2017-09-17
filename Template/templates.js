@@ -9,28 +9,6 @@ const random  = require("random-js")();
 const token = process.env.FB_VERIFY_ACCESS_TOKEN;
 const vtoken = process.env.FB_VERIFY_TOKEN;
 
-const getUserData = (user_id) => {
-    return new Promise( (resolve, reject) => {
-        request({
-            method: 'GET',
-            uri: `https://graph.facebook.com/v2.6/${user_id}?fields=first_name,last_name&access_token=${token}`,
-            json: true
-        }, (error, response, data) => {
-            if(!error) {                
-                if (response.statusCode === 200) {
-                    resolve(data);
-                } else if (response.statusCode === 404) {
-                    reject('No user found');
-                } else if (response.statusCode === 400) {
-                    reject('Not a Valid User Search');
-                }
-            } else {
-                reject('Cannot connect to the Facebook Server');
-            }
-        });
-    })
-};
-
 const callSendApi = (messageData, callback) => {
     return new Promise( (resolve, reject) => {
         request({
@@ -43,13 +21,8 @@ const callSendApi = (messageData, callback) => {
         }, (error, response, body)=> {
             if (!error && response.statusCode == 200) {
                 var recipientId = body.recipient_id;
-                var messageId = body.message_id;
-
-                if (messageId) {
-                    resolve("Successfully sent message to : " + recipientId);
-                } else {
-                    resolve("Could not send message but successfully called Send-API for " + recipientId);
-                }
+                if (body.message_id)
+                    resolve("Message send to : " + recipientId);
             } else {
                 reject(`Failed calling Send API ${response.statusCode} ${response.statusMessage} ${body.error}`);
             }
@@ -207,7 +180,6 @@ const sendGenericReply = (sender, data) => {
 }
 
 module.exports = {
-    getUserData,
     sendTypingOn,
     sendTextMessage,
     sendImage,

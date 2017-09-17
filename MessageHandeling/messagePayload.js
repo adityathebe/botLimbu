@@ -1,32 +1,20 @@
-const BOT           = require("../Template/templates");
+const BOT       = require("../Template/templates");
 const Coin          = require('../Modules/coin');
-const Nude          = require('../Modules/nude');
 const Entertain     = require('../Modules/entertain');
-const News          = require('../Modules/news');
 const QFX           = require('../Modules/qfxcinema');
 
-const newsKeyWord = ['bbc-news','bbc-sport','cnn','hacker-news','mashable','techcrunch'];
+const PAYLOAD_OPTIONS = {
+    'PL_flipcoin' : (sender) => Coin.flip(sender),
+    'PL_joke' : (sender) => Entertain.sendJoke(sender),
+    'PL_fact' : (sender) => Entertain.sendFact(sender),
+    'PL_quote' : (sender) => Entertain.sendQuote(sender),
+    'PL_onCinema' : (sender) => QFX.fetch(sender, 'onCinema'),
+    'PL_comingSoon' : (sender) => QFX.fetch(sender, 'comingSoon'),
+}
 
-const handle = (sender, payload) => {
-    if(newsKeyWord.indexOf(payload) >= 0) {
-        News.display(sender, payload);
-    } else if(payload === 'PL_flipcoin') {
-        Coin.flip(sender);
-    } else if (payload === 'PL_adult') {
-        Nude.send(sender);
-    } else if (payload === 'PL_joke') {
-        Entertain.sendJoke(sender);
-    } else if (payload === 'PL_fact') {
-        Entertain.sendFact(sender);
-    } else if (payload === 'PL_quote') {
-        Entertain.sendQuote(sender);
-    } else if (payload === 'PL_onCinema') {
-        QFX.fetch(sender, 'onCinema');
-    } else if (payload === 'PL_comingSoon') {
-        QFX.fetch(sender, 'comingSoon');
-    } else {
-        console.log('Unknown Payload - QuickReplies');
-    }
+const handleMessagePayload = (sender, payload) => {
+    BOT.sendTypingOn(sender);
+    typeof(payload) !== 'undefined' ? PAYLOAD_OPTIONS[payload](sender) : console.log('Unknown Payload - QuickReplies');
 };
 
-module.exports.handle = handle
+module.exports = handleMessagePayload;

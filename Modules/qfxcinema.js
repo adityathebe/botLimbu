@@ -46,7 +46,7 @@ const fetch = (sender, option) => {
             for (let j= 0; j< upcoming.length; j++) {
                 upcomingMoviesPayload.push({
                     title: upcoming[j].title,
-                    subtitle : 'Realeasing on: ' + upcoming[j].date,
+                    subtitle : 'Releasing on: ' + upcoming[j].date,
                     img_url : upcoming[j].image,
                     url : upcoming[j].image,
                     btnTitle : 'See Poster'

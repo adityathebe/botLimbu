@@ -10,7 +10,7 @@ const forecast = (sender, address) => {
 		if(response.data.status === 'ZERO_RESULTS') {
 			throw new Error('Unable to find the address.');
 		}
-		BOT.sendTextMessage(sender, `Fetching Data: ${response.data.results[0].formatted_address}`);
+		BOT.sendTextMessage(sender, `Fetching Weather: ${response.data.results[0].formatted_address}`);
 		let lat = response.data.results[0].geometry.location.lat;
 		let lng = response.data.results[0].geometry.location.lng;
 		let weatherUrl = `https://api.darksky.net/forecast/${apiKey}/${lat},${lng}?units=si`;

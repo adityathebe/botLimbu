@@ -1,44 +1,29 @@
 const BOT       = require("../Template/templates");
-const Kantipur  = require('../Modules/kantipur');
 const KU        = require('../Modules/ku');
 const replies   = require('../data/replies');
+const sendKantipurNews  = require('../Modules/kantipur');
 
 const {subscribe}   = require('../utility/subscription');
-const {unsubscribe}   = require('../utility/subscription');
+const {unsubscribe} = require('../utility/subscription');
 
-const handle = (sender, payload) => {
+const PAYLOAD_OPTIONS = {
+    'GET_STARTED_PAYLOAD' : (sender) => { 
+        BOT.getUserData(sender).then((data) => {
+            BOT.sendTextMessage(sender, `Hi ${data.first_name}. ${replies[3]}`);
+        }, (errMsg) => {
+            BOT.sendTextMessage(sender, `Hi there. ${replies[3]}`);
+        });
+    },
+    'PL_kantipurNews' : (sender) => sendKantipurNews(sender),
+    'PL_kuNews' : (sender) => KU.news(sender),
+    'PL_KuResult' : (sender) => KU.result(sender),
+    'PL_subscribe' : (sender) => subscribe(sender),
+    'PL_unsub' : (sender) => unsubscribe(sender),
+}
+
+const handlePayload = (sender, payload) => {
     BOT.sendTypingOn(sender);
-    switch (payload) {
-        case 'GET_STARTED_PAYLOAD':
-            BOT.getUserData(sender).then((data) => {
-                BOT.sendTextMessage(sender, `Hi ${data.first_name}. ${replies[3]}`);
-            }, (errMsg) => {
-                console.log(errMsg);
-            });
-            break;
-
-        case 'PL_kantipurNews':
-            Kantipur.news(sender);
-            break;
-
-        case "PL_kuNews":
-            KU.news(sender);
-            break;
-
-        case "PL_KuResult":
-            KU.result(sender);
-            break;
-
-        case 'PL_subscribe':
-            subscribe(sender);
-            break;
-    
-        case 'PL_unsub':
-            unsubscribe(sender);
-            break;
-    }
+    PAYLOAD_OPTIONS[payload](sender);
 };
 
-module.exports = {
-    handle
-}
+module.exports = handlePayload;

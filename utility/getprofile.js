@@ -13,6 +13,4 @@ const getProfile = (id) => {
     });
 };
 
-module.exports = {
-    getProfile
-}
+module.exports = getProfile;

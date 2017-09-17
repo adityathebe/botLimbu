@@ -3,7 +3,7 @@ const request = require("request");
 
 let url = "http://www.ekantipur.com/newsdigest/english";
 
-const news = (sender) => {
+const sendKantipurNews = (sender) => {
     let news = [];
     request({url: url, json: true}, (error, response, body) => {
         if(!error)  {
@@ -44,6 +44,4 @@ const news = (sender) => {
     })
 }
 
-module.exports = {
-    news
-}
+module.exports = sendKantipurNews;
