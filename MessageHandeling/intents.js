@@ -1,10 +1,6 @@
 /* ============ Message samples ============= */
 const BOT = require('../Template/templates');
 
-/* ============ Data ============= */
-const command = require('../data/commands');
-const replies = require('../data/replies');
-
 /* ================= Tasks ================== */
 const Coin          = require('../Modules/coin');
 const Entertain     = require('../Modules/entertain')

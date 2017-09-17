@@ -1,6 +1,5 @@
 const BOT       = require("../Template/templates");
 const KU        = require('../Modules/ku');
-const replies   = require('../data/replies');
 const sendKantipurNews  = require('../Modules/kantipur');
 
 const {subscribe}   = require('../utility/subscription');
