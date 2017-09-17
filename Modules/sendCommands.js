@@ -8,7 +8,7 @@ const reply = "I am BotLimbu. You can ask me for things like\n\n" +
             "• What movies are running on QFX Movies at the moment? \n" + 
             "• Flip a coin \n" +
             "• Facts \n" +
-            "• Quotes \n\n" +
+            "• Quotes \n " +
             "• Kathmandu University result \n" +
             "• Kathmandu University news \n" +
             "And if you ever need help, just type 'COMMAND'";
