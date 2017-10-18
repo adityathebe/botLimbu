@@ -22,7 +22,7 @@ const news = (sender) => {
                 url: news.url,
                 img_url: "http://i.imgur.com/RPUDbs3.jpg"
             })
-        }
+        });
         BOT.sendGenericMessage(sender, payload);
     });
 }
