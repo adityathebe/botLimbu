@@ -40,7 +40,7 @@ const result = (sender) => {
                     url: res.link,
                     img_url: "http://i.imgur.com/RPUDbs3.jpg",
                 })
-            }
+            });
             BOT.sendGenericMessage(sender, result);
         } else {
             BOT.sendTextMessage(sender, "Couldn't connect to the server.\nPlease try again later");  
