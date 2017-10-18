@@ -1,15 +1,13 @@
 const BOT       = require("../Template/templates");
 const KU        = require('../Modules/ku');
 const sendKantipurNews  = require('../Modules/kantipur');
-
-const {subscribe}   = require('../utility/subscription');
-const {unsubscribe} = require('../utility/subscription');
+const {subscribe, unsubscribe}   = require('../utility/subscription');
 
 const PAYLOAD_OPTIONS = {
     'GET_STARTED_PAYLOAD' : (sender) => { 
         BOT.getUserData(sender).then((data) => {
-            BOT.sendTextMessage(sender, `Hi ${data.first_name}. ${replies[3]}`);
-        }, (errMsg) => {
+            return BOT.sendTextMessage(sender, `Hi ${data.first_name}. ${replies[3]}`);
+        }).catch((errMsg) => {
             BOT.sendTextMessage(sender, `Hi there. ${replies[3]}`);
         });
     },

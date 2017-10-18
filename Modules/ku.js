@@ -1,27 +1,30 @@
 const BOT = require("../Template/templates");
 const Feed = require("rss-to-json");
-const request = require('request');
 
 const news = (sender) => {
-    let url = "https://ku-gex.herokuapp.com/";
-    request({url: url, json: true}, (error, response, body) => {
-        if(!error)  {
-            body = body.slice(0, 4);
-            let payload = [];
-            for (var i = 0; i < body.length; i++) {
-                payload.push({
-                    title: body[i].title,
-                    subtitle: body[i].date,
-                    url: body[i].permalink,
-                    img_url: body[i].img_src
-                })
-            }
-            BOT.sendGenericMessage(sender, payload);
+    const url = 'http://www.ku.edu.np/news/rss.php?blogId=1&profile=rss20';
+    Feed.load(url, (error, rss) => {
+        if (error) 
+            return BOT.sendTextMessage(sender, "Couldn't connect to the server.\nPlease try again later");
+
+        let body = rss.items.map((res) => {
+            let date = new Date(res.created);
+            res.created = date.toString("MMM dd").substring(0, 15);
+            delete res.link;
+            return res;
+        }).splice(0, 4);
+
+        let payload = [];
+        body.forEach((news) => {
+            payload.push({
+                title: news.title,
+                subtitle: news.created,
+                url: news.url,
+                img_url: "http://i.imgur.com/RPUDbs3.jpg"
+            })
         }
-        else {
-            BOT.sendTextMessage(sender, "Couldn't connect to the server.\nPlease try again later");  
-        }
-    })
+        BOT.sendGenericMessage(sender, payload);
+    });
 }
 
 const result = (sender) => {
@@ -29,12 +32,12 @@ const result = (sender) => {
         if(!error) {
             let body = rss.items.slice(0, 5);
             let result = [];
-            for (var i = 0; i < body.length; i++) {
-                let date = new Date(body[i].created)
+            body.forEach((res) => {
+                let date = new Date(res.created)
                 result.push({
-                    title: body[i].title,
+                    title: res.title,
                     subtitle: "Published on: " + (date.toString("MMM dd")).substring(0,15),
-                    url: body[i].link,
+                    url: res.link,
                     img_url: "http://i.imgur.com/RPUDbs3.jpg",
                 })
             }
