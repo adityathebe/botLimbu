@@ -1,7 +1,7 @@
 const UserModel = require('../models/user');
 const BOT = require('../Template/templates');
 
-const {getProfile} = require('./getprofile');
+const getProfile = require('./getprofile');
 
 const subscribe = (id) => {
     getProfile(id).then((data) => {
