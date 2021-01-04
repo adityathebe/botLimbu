@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "apiai": "^4.0.3",
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "mongoose": "^4.11.10",
